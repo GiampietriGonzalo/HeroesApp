@@ -5,66 +5,54 @@ class ComicCollectionViewController: UIViewController{
     @IBOutlet weak var comicCollection: UICollectionView!
     @IBOutlet var myView: UIView!
     
-    var myComics: [Comic]?
-    var myManager: SuperheroManager?
-    
+    private var comicModel : ComicModelView?
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        myManager = SuperheroManager()
+        comicModel = MarvelComicModelview()
         lookForComics()
     }
     
 
     private func lookForComics(){
         
-        myManager?.getComics() { [weak self] comicArray in
+        comicModel?.lookForComics(){ [weak self] in
             
-            guard let mySelf = self else {
+            guard let mySelf = self else{
                 return
             }
             
-            
             DispatchQueue.main.async {
-                mySelf.myComics = comicArray
                 mySelf.comicCollection.reloadData()
             }
+            
         }
-        
     }
+        
+    
 }
 
 extension ComicCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        guard let comics = myComics else{
-            return 0
-        }
-        
-        return comics.count
-        
+        return comicModel!.getComicsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let myCell = comicCollection.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
-        initComicCell(cell: myCell, row: indexPath.row)
+        
+        comicModel?.initComicCell(cell: myCell, row: indexPath.row)
+        
         return myCell
     }
     
-    private func initComicCell(cell: ComicCollectionCell, row: Int){
-        
-        if let comics = myComics {
-            cell.comicImage.sd_setImage(with: URL(string: comics[row].thumbnail.completePath()!),  placeholderImage: nil, options: [], completed: nil)
-        }
-        
-    }
-    
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let segueId = segue.identifier, let comics = myComics else{
+        guard let segueId = segue.identifier else{
             return
         }
         
@@ -75,7 +63,7 @@ extension ComicCollectionViewController: UICollectionViewDataSource, UICollectio
             }
             
             let myVC = segue.destination as? ComicViewController
-            myVC?.comic = comics[index]
+            myVC?.comic = comicModel?.getComicAt(index: index)
             
         }
         

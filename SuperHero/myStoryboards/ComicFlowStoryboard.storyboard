@@ -88,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CAJ-6a-dGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2768.8000000000002" y="-29.23538230884558"/>
+            <point key="canvasLocation" x="2390" y="-29"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8ul-DF-3aZ">
@@ -112,7 +112,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uXp-4j-4Lk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="604" y="-29.23538230884558"/>
+            <point key="canvasLocation" x="981" y="-29"/>
         </scene>
         <!--Comic Collection View Controller-->
         <scene sceneID="bFm-SW-AJD">

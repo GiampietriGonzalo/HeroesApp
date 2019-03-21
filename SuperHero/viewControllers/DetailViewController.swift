@@ -113,7 +113,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         
         //Zoomea la imagen del heroe
         if(segueId == "tapSegue"){
-            let myVC = segue.destination as? HeroImageZooomViewController
+            let myVC = segue.destination as? HeroImageZoomViewController
             myVC?.heroImage = hero.thumbnail.completePath()
         }
         

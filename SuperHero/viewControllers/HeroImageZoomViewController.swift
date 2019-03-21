@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 
-class HeroImageZooomViewController: UIViewController {
+class HeroImageZoomViewController: UIViewController {
     
     var heroImage: String?
     @IBOutlet weak var img: UIImageView!
