@@ -1,14 +1,6 @@
-//
-//  ComicListViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 12/03/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 
-class ComicListViewController: UIViewController{
+class ComicCollectionViewController: UIViewController{
 
     @IBOutlet weak var comicCollection: UICollectionView!
     @IBOutlet var myView: UIView!
@@ -20,6 +12,7 @@ class ComicListViewController: UIViewController{
         
         super.viewDidLoad()
         myManager = SuperheroManager()
+        lookForComics()
     }
     
 
@@ -41,7 +34,7 @@ class ComicListViewController: UIViewController{
     }
 }
 
-extension ComicListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ComicCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

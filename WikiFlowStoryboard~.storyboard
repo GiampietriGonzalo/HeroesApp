@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Be4-si-e1d">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Wiki Web View Controller-->
+        <scene sceneID="kot-bb-OuI">
+            <objects>
+                <viewController id="Be4-si-e1d" customClass="WikiWebViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vsB-d6-dtI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uM6-aQ-8OU">
+                                <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Z5K-K9-51a">
+                                <rect key="frame" x="177.5" y="348.5" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dy3-ba-dHw">
+                                <rect key="frame" x="16" y="20" width="22" height="22"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <connections>
+                                    <action selector="goBack:" destination="Be4-si-e1d" eventType="touchUpInside" id="5ev-Hg-yF4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Z5K-K9-51a" firstAttribute="centerX" secondItem="uM6-aQ-8OU" secondAttribute="centerX" id="0uE-B8-EcC"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="top" secondItem="Dy3-ba-dHw" secondAttribute="bottom" constant="8" id="Ber-ky-VSv"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="trailing" secondItem="FL4-FZ-ijX" secondAttribute="trailing" id="ChC-VL-8pe"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="leading" secondItem="FL4-FZ-ijX" secondAttribute="leading" id="aJ4-B3-PwD"/>
+                            <constraint firstItem="Dy3-ba-dHw" firstAttribute="leading" secondItem="FL4-FZ-ijX" secondAttribute="leading" constant="16" id="ciE-Uj-v2I"/>
+                            <constraint firstItem="Dy3-ba-dHw" firstAttribute="top" secondItem="FL4-FZ-ijX" secondAttribute="top" id="dM8-qr-GgJ"/>
+                            <constraint firstItem="Z5K-K9-51a" firstAttribute="centerY" secondItem="uM6-aQ-8OU" secondAttribute="centerY" id="fOa-1s-Mq3"/>
+                            <constraint firstAttribute="bottom" secondItem="uM6-aQ-8OU" secondAttribute="bottom" id="h3U-pi-p5K"/>
+                            <constraint firstItem="FL4-FZ-ijX" firstAttribute="trailing" secondItem="Dy3-ba-dHw" secondAttribute="trailing" constant="337" id="hDq-CB-TAa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FL4-FZ-ijX"/>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="loadWikiWeb" destination="Z5K-K9-51a" id="Bi4-Id-uBg"/>
+                        <outlet property="webView" destination="uM6-aQ-8OU" id="GAi-LN-dQh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8tH-yU-B6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4144.8000000000002" y="676.91154422788611"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+</document>

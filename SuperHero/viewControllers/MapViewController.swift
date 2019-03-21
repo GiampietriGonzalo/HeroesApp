@@ -1,11 +1,3 @@
-//
-//  MapViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 14/03/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 import MapKit
 import CoreLocation

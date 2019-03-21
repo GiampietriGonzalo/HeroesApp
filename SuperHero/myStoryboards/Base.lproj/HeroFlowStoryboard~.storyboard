@@ -80,7 +80,7 @@
         <!--SuperHero-->
         <scene sceneID="WYv-kY-3ni">
             <objects>
-                <viewController storyboardIdentifier="RootViewController" id="UGA-TX-m9y" customClass="HeroCollectionViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootViewController" id="UGA-TX-m9y" customClass="RootViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SWj-8w-LQf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +276,7 @@
                                     <color key="titleColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bHM-BF-4a4" kind="presentation" identifier="heroWikiSegue" id="xNe-ZO-dre"/>
+                                    <segue destination="Be4-si-e1d" kind="presentation" identifier="heroWikiSegue" id="O02-EH-61W"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -333,10 +333,10 @@
             </objects>
             <point key="canvasLocation" x="2984.8000000000002" y="-75.112443778110944"/>
         </scene>
-        <!--Hero Image Zooom View Controller-->
+        <!--Modal View Controller-->
         <scene sceneID="fPN-Ar-URU">
             <objects>
-                <viewController id="RyG-kp-rAx" customClass="HeroImageZooomViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RyG-kp-rAx" customClass="ModalViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S7k-6h-Qt0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -389,14 +389,14 @@
             <point key="canvasLocation" x="2779" y="390"/>
         </scene>
         <!--Wiki Web View Controller-->
-        <scene sceneID="DCZ-MG-3hU">
+        <scene sceneID="kot-bb-OuI">
             <objects>
-                <viewController id="bHM-BF-4a4" customClass="WikiWebViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dVO-yR-xez">
+                <viewController id="Be4-si-e1d" customClass="WikiWebViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vsB-d6-dtI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3I1-Lh-ufN">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uM6-aQ-8OU">
                                 <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
@@ -404,44 +404,44 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="c95-PY-BHt">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Z5K-K9-51a">
                                 <rect key="frame" x="177.5" y="348.5" width="20" height="20"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF3-ft-8WK">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dy3-ba-dHw">
                                 <rect key="frame" x="16" y="20" width="22" height="22"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <connections>
-                                    <action selector="goBack:" destination="bHM-BF-4a4" eventType="touchUpInside" id="2s2-sh-5Mq"/>
+                                    <action selector="goBack:" destination="Be4-si-e1d" eventType="touchUpInside" id="5ev-Hg-yF4"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3I1-Lh-ufN" firstAttribute="top" secondItem="LF3-ft-8WK" secondAttribute="bottom" constant="8" id="1Qe-g3-jjY"/>
-                            <constraint firstItem="c95-PY-BHt" firstAttribute="centerX" secondItem="3I1-Lh-ufN" secondAttribute="centerX" id="8r7-Nt-Snu"/>
-                            <constraint firstItem="LF3-ft-8WK" firstAttribute="leading" secondItem="WCW-g9-Lpb" secondAttribute="leading" constant="16" id="IUd-by-reK"/>
-                            <constraint firstItem="LF3-ft-8WK" firstAttribute="top" secondItem="WCW-g9-Lpb" secondAttribute="top" id="KaJ-FY-TdX"/>
-                            <constraint firstItem="3I1-Lh-ufN" firstAttribute="leading" secondItem="WCW-g9-Lpb" secondAttribute="leading" id="N6v-w1-wOF"/>
-                            <constraint firstItem="c95-PY-BHt" firstAttribute="centerY" secondItem="3I1-Lh-ufN" secondAttribute="centerY" id="NZs-uG-hzY"/>
-                            <constraint firstItem="3I1-Lh-ufN" firstAttribute="trailing" secondItem="WCW-g9-Lpb" secondAttribute="trailing" id="hDY-a8-ynr"/>
-                            <constraint firstAttribute="bottom" secondItem="3I1-Lh-ufN" secondAttribute="bottom" id="mjF-lr-bQL"/>
-                            <constraint firstItem="WCW-g9-Lpb" firstAttribute="trailing" secondItem="LF3-ft-8WK" secondAttribute="trailing" constant="337" id="vgr-ce-mj8"/>
+                            <constraint firstItem="Z5K-K9-51a" firstAttribute="centerX" secondItem="uM6-aQ-8OU" secondAttribute="centerX" id="0uE-B8-EcC"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="top" secondItem="Dy3-ba-dHw" secondAttribute="bottom" constant="8" id="Ber-ky-VSv"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="trailing" secondItem="FL4-FZ-ijX" secondAttribute="trailing" id="ChC-VL-8pe"/>
+                            <constraint firstItem="uM6-aQ-8OU" firstAttribute="leading" secondItem="FL4-FZ-ijX" secondAttribute="leading" id="aJ4-B3-PwD"/>
+                            <constraint firstItem="Dy3-ba-dHw" firstAttribute="leading" secondItem="FL4-FZ-ijX" secondAttribute="leading" constant="16" id="ciE-Uj-v2I"/>
+                            <constraint firstItem="Dy3-ba-dHw" firstAttribute="top" secondItem="FL4-FZ-ijX" secondAttribute="top" id="dM8-qr-GgJ"/>
+                            <constraint firstItem="Z5K-K9-51a" firstAttribute="centerY" secondItem="uM6-aQ-8OU" secondAttribute="centerY" id="fOa-1s-Mq3"/>
+                            <constraint firstAttribute="bottom" secondItem="uM6-aQ-8OU" secondAttribute="bottom" id="h3U-pi-p5K"/>
+                            <constraint firstItem="FL4-FZ-ijX" firstAttribute="trailing" secondItem="Dy3-ba-dHw" secondAttribute="trailing" constant="337" id="hDq-CB-TAa"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WCW-g9-Lpb"/>
+                        <viewLayoutGuide key="safeArea" id="FL4-FZ-ijX"/>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="loadWikiWeb" destination="c95-PY-BHt" id="DjR-2H-tmN"/>
-                        <outlet property="webView" destination="3I1-Lh-ufN" id="nys-6I-cbf"/>
+                        <outlet property="loadWikiWeb" destination="Z5K-K9-51a" id="Bi4-Id-uBg"/>
+                        <outlet property="webView" destination="uM6-aQ-8OU" id="GAi-LN-dQh"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IU7-0m-mhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8tH-yU-B6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4218" y="892"/>
+            <point key="canvasLocation" x="4144.8000000000002" y="676.91154422788611"/>
         </scene>
     </scenes>
     <resources>

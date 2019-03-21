@@ -1,11 +1,3 @@
-//
-//  DetailViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 28/02/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 import AVKit
 import Alamofire
@@ -121,8 +113,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         
         //Zoomea la imagen del heroe
         if(segueId == "tapSegue"){
-            
-            let myVC = segue.destination as? ModalViewController
+            let myVC = segue.destination as? HeroImageZooomViewController
             myVC?.heroImage = hero.thumbnail.completePath()
         }
         

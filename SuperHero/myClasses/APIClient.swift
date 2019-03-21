@@ -15,20 +15,25 @@ class APIClient {
     private var pathRequest: String
     private var urlRequest: URL?
     private var urlSession : URLSession?
+    private var dataTask : URLSessionDataTask?
+    private var gotConnection : Bool
+    private var coreDataManager : CoreDataManager
     
     private var myHeroes: Set<Hero>?
     typealias serviceResponse = (Set<Hero>?, Error?) -> Void
     
-    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    private let context : NSManagedObjectContext
+    private let appDelegate : AppDelegate?
+    private let context : NSManagedObjectContext?
     private let decoder: JSONDecoder
     
     init(){
-        context = appDelegate.persistentContainer.viewContext
+        appDelegate = UIApplication.shared.delegate as? AppDelegate
+        context = appDelegate?.persistentContainer.viewContext
         decoder = JSONDecoder()
         decoder.userInfo[CodingUserInfoKey.context!] = context
         pathRequest = ""
-        
+        gotConnection = true
+        coreDataManager = CoreDataManager()
     }
     
     /*
@@ -38,35 +43,33 @@ class APIClient {
     
     func getSuperheroes(completion: @escaping serviceResponse){
         
-        //let url = URL(string: "https://gateway.marvel.com/v1/public/characters?apikey=df8dd556fd0c4c6b35436d25cbab6dc8&hash=efb23e10af0852878a59f75d4ecba00f&ts=1&limit=99") //&limit=50
+       
+        gotConnection = Connectivity.isConnectedToInternet()
+        
+        
+        if !gotConnection {
+            
+            
+            
+        }
+        
+        //HAY INTERNET
+        
         pathRequest = "\(APIClient.marvelUrl)apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1&limit=99"
         urlRequest = URL(string: pathRequest)!
      
-        /**
-         inicialiamos URLSession y obtenemos una task. Esta task representa al servicio. Una vez que la API
-         nos devuelva la respuesta, se va a ejecutar el closure
-         */
         urlSession = URLSession(configuration: .default)
         
-        let dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
+        dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
             
             guard let validData = data else {
                 return
             }
             do {
            
-                /**
-                 Una vez que ya tenemos la referencia al context, podemos decodear.
-                 Al momento de decodear, se van a ir llamando todos los init(from Decoder...) de nuestros modelos,
-                 cada init va metiendo entidades en el context
-                 */
-                
                 let heroResponse: HeroesResponse = try self.decoder.decode(HeroesResponse.self, from: validData)
-              
-             
                 completion(heroResponse.data.results,nil)
-            
-                
+
             }
             catch {
                 print("ERROR AT getSuperheroes:\n\(error.localizedDescription))")
@@ -87,7 +90,7 @@ class APIClient {
         urlSession = URLSession(configuration: .default)
         urlRequest = URL(string: pathRequest)
         
-        let dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
+        dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else{
                 return
@@ -126,7 +129,7 @@ class APIClient {
         var comics: [Comic] = []
         urlSession = URLSession(configuration: .default)
         
-        let dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
+        dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else{
                 return
@@ -140,9 +143,7 @@ class APIClient {
                     comics.append(comic)
                 }
                 
-               
                 completion(comics,nil)
-              
                 
             }
             catch{
@@ -169,7 +170,7 @@ class APIClient {
         
         var wikiURL: String?
         
-        let dataTask = urlSession?.dataTask(with: urlRequest! , completionHandler: { (data,response,error) in
+        dataTask = urlSession?.dataTask(with: urlRequest! , completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else {
                 return
@@ -211,11 +212,11 @@ class APIClient {
         
 
         var heroToReturn : Hero?
-        pathRequest = "\(APIClient.marvelUrl)?id=\(heroID)&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        pathRequest = "\(APIClient.marvelUrl)id=\(heroID)&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
         urlRequest = URL(string: pathRequest)
         urlSession = URLSession(configuration: .default)
         
-        let dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
+        dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
             
             guard let validData = data else {
                 return
@@ -229,7 +230,7 @@ class APIClient {
                 
             }
             catch {
-                print("ERROR AT searchHeroID\n \(error.localizedDescription)")
+                print("ERROR AT searchHeroByID\n \(error.localizedDescription)")
                 completion(nil)
             }
             

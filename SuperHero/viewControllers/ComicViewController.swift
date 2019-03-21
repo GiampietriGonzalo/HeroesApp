@@ -1,11 +1,3 @@
-//
-//  ComicViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 06/03/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 

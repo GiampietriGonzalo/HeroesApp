@@ -1,11 +1,3 @@
-//
-//  WikiWebViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 13/03/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 import WebKit
 
@@ -22,7 +14,7 @@ class WikiWebViewController: UIViewController, WKNavigationDelegate {
         
     }
     
-    private func pintAll(){
+    func pintAll(){
         
         webView.navigationDelegate = self
         self.view.bringSubviewToFront(self.loadWikiWeb)

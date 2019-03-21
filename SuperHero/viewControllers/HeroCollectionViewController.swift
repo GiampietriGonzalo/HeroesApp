@@ -1,17 +1,9 @@
-//
-//  HeroViewController.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 27/02/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 import UserNotifications
 import CoreData
 
-class RootViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HeroCollectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     @IBOutlet weak var heroTable: UITableView!
@@ -48,92 +40,7 @@ class RootViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    /**
-     Si queremos storear a mano un HeroesResponse. Esto es a modo ilustrativo, ya que
-     un HeroessResponse con datos cargados nos lo provee la API.. en este caso nos va a guardar
-     un HeroessResponse sin datos a menos que se los seteemos manuelmente dato por dato
-     */
-    func store(contex: NSManagedObjectContext) {
-        
-        //let Heroes = HeroesResponse(context: contex)
-        
-        do {
-            try contex.save()
-            print("STORE EXITOSO!")
-        }
-        catch let error {
-            print("FALLO EL STORE :: \(error)")
-        }
-    }
     
-    /**
-     Ejecuta una query para obtener una lista de objetos HeroessResponse que tengamos almacenada
-     en nuestra base.
-     */
-    func fetch(context: NSManagedObjectContext) {
-        
-        let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            
-            print("CANTIDAD DEL CHARs :: \(results.count)")
-            
-            
-        }
-        catch let error {
-            print("FALLO EL FETCH :: \(error)")
-        }
-        
-    }
-    
-    /**
-     Para hacer update primero hacemos un fetch como para obtener los objetos que vamos a updatear,
-     en este ejemplo, agarramos el primer Heroes y le cambiamos el nombre
-     */
-    func update(context: NSManagedObjectContext) {
-       
-        //let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-        
-        do {
-            //let results = try context.fetch(fetchRequest)
-            //let firstHeroes = results.first!.data.results.first!
-
-            
-            try context.save()
-            print("UPDATE: Sucessfull")
-            
-        }
-        catch let error {
-            print("FALLO EL UPDATE :: \(error)!")
-        }
-    }
-    
-    /**
-     En este caso, hacemos un fetch para obtener todos los objetos HeroessResponse que tengamos almacenados
-     en la base. Dependiendo del valor del booleano, va a borrar el primero o todos
-     */
-    func delete(context: NSManagedObjectContext, onlyFirstValue: Bool) {
-        
-        do {
-            if onlyFirstValue {
-                let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-                let results = try context.fetch(fetchRequest)
-                if let aFirst = results.first {
-                    context.delete(aFirst)
-                }
-            }
-            else {
-                let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-                let batchDelete = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
-                
-                try context.execute(batchDelete)
-            }
-        }
-        catch let error {
-            print("FALLO EL DELETE! :: \(error)")
-        }
-    }
     
     
     
@@ -293,7 +200,7 @@ class RootViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
 //SearchBar behavior
-extension RootViewController: UISearchBarDelegate{
+extension HeroCollectionViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

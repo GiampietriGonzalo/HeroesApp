@@ -114,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="604" y="-29.23538230884558"/>
         </scene>
-        <!--Comic List View Controller-->
+        <!--Comic Collection View Controller-->
         <scene sceneID="bFm-SW-AJD">
             <objects>
-                <viewController storyboardIdentifier="ComicCollectionID" id="w6I-2m-fBB" customClass="ComicListViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ComicCollectionID" id="w6I-2m-fBB" customClass="ComicCollectionViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P61-kf-fwb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
