@@ -1,0 +1,27 @@
+{
+  "Mac" : [
+    {
+      "name" : "SDWebImage",
+      "hash" : "c1a2e13c78395461f35c1344691ae1bbb9d1457b2e0ba36eb45acaba76272933"
+    }
+  ],
+  "watchOS" : [
+    {
+      "name" : "SDWebImage",
+      "hash" : "cadd793b1a5b53b605d9446f1a2ddbb33c656f3f49d2d409b00ac37de9000198"
+    }
+  ],
+  "tvOS" : [
+    {
+      "name" : "SDWebImage",
+      "hash" : "99b5a5b44fe729561f866a30b9385295628c005e18ab8abd84055816d083a296"
+    }
+  ],
+  "commitish" : "4.4.6",
+  "iOS" : [
+    {
+      "name" : "SDWebImage",
+      "hash" : "24076e88b29dcd26ec62f8d2b971d817cb114c90f97df195ef28f5203a793342"
+    }
+  ]
+}
