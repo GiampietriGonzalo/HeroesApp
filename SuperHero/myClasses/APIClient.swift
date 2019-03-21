@@ -1,11 +1,3 @@
-//
-//  APIClient.swift
-//  SuperHero
-//
-//  Created by Gonzalo Giampietri on 08/03/2019.
-//  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 import SwiftyJSON
@@ -16,11 +8,13 @@ import CoreData
 
 class APIClient {
     
-    private static let marvelUrl = "https://gateway.marvel.com/v1/public/characters"
+    private static let marvelUrl = "https://gateway.marvel.com/v1/public/characters?"
     private static let publicKey = "df8dd556fd0c4c6b35436d25cbab6dc8"
     private static let hash = "efb23e10af0852878a59f75d4ecba00f"
     
-    private let characterURL = "\(marvelUrl)?apikey=\(publicKey)&hash=\(hash)&ts=1&limit=99"
+    private var pathRequest: String
+    private var urlRequest: URL?
+    private var urlSession : URLSession?
     
     private var myHeroes: Set<Hero>?
     typealias serviceResponse = (Set<Hero>?, Error?) -> Void
@@ -33,6 +27,8 @@ class APIClient {
         context = appDelegate.persistentContainer.viewContext
         decoder = JSONDecoder()
         decoder.userInfo[CodingUserInfoKey.context!] = context
+        pathRequest = ""
+        
     }
     
     /*
@@ -42,17 +38,17 @@ class APIClient {
     
     func getSuperheroes(completion: @escaping serviceResponse){
         
-        let url = URL(string: "https://gateway.marvel.com/v1/public/characters?apikey=df8dd556fd0c4c6b35436d25cbab6dc8&hash=efb23e10af0852878a59f75d4ecba00f&ts=1&limit=99") //&limit=50
-        let urlRequest = URLRequest(url: url!)
-        
-        
+        //let url = URL(string: "https://gateway.marvel.com/v1/public/characters?apikey=df8dd556fd0c4c6b35436d25cbab6dc8&hash=efb23e10af0852878a59f75d4ecba00f&ts=1&limit=99") //&limit=50
+        pathRequest = "\(APIClient.marvelUrl)apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1&limit=99"
+        urlRequest = URL(string: pathRequest)!
+     
         /**
          inicialiamos URLSession y obtenemos una task. Esta task representa al servicio. Una vez que la API
          nos devuelva la respuesta, se va a ejecutar el closure
          */
-        let urlSession = URLSession(configuration: .default)
+        urlSession = URLSession(configuration: .default)
         
-        let dataTask = urlSession.dataTask(with: urlRequest, completionHandler: { (data, response, error) in
+        let dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
             
             guard let validData = data else {
                 return
@@ -79,20 +75,19 @@ class APIClient {
          
         })
         
-        dataTask.resume()
+        dataTask?.resume()
         
         completion(myHeroes,nil)
     }
     
     func getComicsHero(heroID: Int32, completion: @escaping ([Comic]?,Error?) -> Void){
     
-
-        let comicURL = "https://gateway.marvel.com:443/v1/public/characters/\(heroID)/comics?apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
-        
+        pathRequest = "https://gateway.marvel.com:443/v1/public/characters/\(heroID)/comics?apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
         var comics: [Comic] = []
-        let session = URLSession(configuration: .default)
+        urlSession = URLSession(configuration: .default)
+        urlRequest = URL(string: pathRequest)
         
-        let dataTask = session.dataTask(with: URL(string: comicURL)!,completionHandler: { (data,response,error) in
+        let dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else{
                 return
@@ -105,8 +100,7 @@ class APIClient {
                 for comic in comicsResponse.data.results{
                     comics.append(comic)
                 }
-                
-             
+     
                 completion(comics,nil)
                 
                 
@@ -117,7 +111,7 @@ class APIClient {
             }
         })
         
-        dataTask.resume()
+        dataTask?.resume()
     }
     
     
@@ -127,12 +121,12 @@ class APIClient {
     func getComics(completion: @escaping ([Comic]?,Error?) -> Void ){
         
         
-        let comicURL = "https://gateway.marvel.com:443/v1/public/comics?limit=99&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
-
+        pathRequest = "https://gateway.marvel.com:443/v1/public/comics?limit=99&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        urlRequest = URL(string: pathRequest)
         var comics: [Comic] = []
-        let session = URLSession(configuration: .default)
+        urlSession = URLSession(configuration: .default)
         
-        let dataTask = session.dataTask(with: URL(string: comicURL)!,completionHandler: { (data,response,error) in
+        let dataTask = urlSession?.dataTask(with: urlRequest!,completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else{
                 return
@@ -160,20 +154,22 @@ class APIClient {
             
         })
         
-        dataTask.resume()
+        dataTask?.resume()
     }
     
     /*Retorna la url de la wiki asociada al heroe pasado por parámetro*/
     func getWiki(hero: Hero, completion: @escaping (String?,Error?) -> Void){
         
-        let heroURL = "https://gateway.marvel.com:443/v1/public/characters?name=\(hero.name.replacingOccurrences(of:" ", with: "%20"))&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        pathRequest = "https://gateway.marvel.com:443/v1/public/characters?name=\(hero.name.replacingOccurrences(of:" ", with: "%20"))&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        urlSession = URLSession(configuration: .default)
+        urlRequest = URL(string: pathRequest)
         
-        let urlSession = URLSession(configuration: .default)
         let decoder = JSONDecoder()
         decoder.userInfo[CodingUserInfoKey.context!] = context
+        
         var wikiURL: String?
         
-        let dataTask = urlSession.dataTask(with: URL(string: heroURL)! , completionHandler: { (data,response,error) in
+        let dataTask = urlSession?.dataTask(with: urlRequest! , completionHandler: { (data,response,error) in
             
             guard let dataPosta = data else {
                 return
@@ -207,7 +203,7 @@ class APIClient {
             }
         })
         
-        dataTask.resume()
+        dataTask?.resume()
         
     }
     
@@ -215,11 +211,11 @@ class APIClient {
         
 
         var heroToReturn : Hero?
-        let urlPath = "\(APIClient.marvelUrl)?id=\(heroID)&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        pathRequest = "\(APIClient.marvelUrl)?id=\(heroID)&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
+        urlRequest = URL(string: pathRequest)
+        urlSession = URLSession(configuration: .default)
         
-        let urlSession = URLSession(configuration: .default)
-        
-        let dataTask = urlSession.dataTask(with: URL(string: urlPath)!, completionHandler: { (data, response, error) in
+        let dataTask = urlSession?.dataTask(with: urlRequest!, completionHandler: { (data, response, error) in
             
             guard let validData = data else {
                 return
@@ -239,7 +235,7 @@ class APIClient {
             
         })
         
-        dataTask.resume()
+        dataTask?.resume()
     }
     
 }

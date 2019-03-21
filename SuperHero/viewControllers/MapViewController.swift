@@ -17,7 +17,6 @@ class MapViewController: UIViewController{
     
     let locationManager = CLLocationManager()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -28,7 +27,7 @@ class MapViewController: UIViewController{
     }
     
 
-    func setInitialLocation(){
+    private func setInitialLocation(){
         
         let regionRadius: CLLocationDistance = 1000
         let initialLocation = CLLocation(latitude: -38.717392, longitude: -62.265564)
@@ -38,7 +37,7 @@ class MapViewController: UIViewController{
     }
     
     //Agrega las custom annotation
-    func addAnnotation(){
+    private func addAnnotation(){
         
         let kuroganeAnnotation = CustomAnnotation(title: "Kurogane Fanstrore", subtitle: "", coordinate: CLLocationCoordinate2D(latitude: 40.741895, longitude: -73.989308))
         let yokoAnnotation = CustomAnnotation(title: "Yoko Store", subtitle: "", coordinate: CLLocationCoordinate2D(latitude: -38.7211738, longitude: -62.2589567))
@@ -127,18 +126,14 @@ extension MapViewController: MKMapViewDelegate {
                         }
                         
                         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-                        
-                   
-                        
+
                     }
                     else{
                         self.locationManager.requestWhenInUseAuthorization()
                 }
-                        
-
+ 
                 }))
-                
-            
+
                 self.present(alertController, animated: true, completion: nil) }
             )
             
@@ -146,22 +141,6 @@ extension MapViewController: MKMapViewDelegate {
   
 }
 
-    
-//    Tiendas de Comics/librerias en Bahia:
-//
-//    Bahia Blanca —  -38.7182,-62.266200000000026. — locación inicial
-//
-//    Kurogane Fanstore — lat: 40.741895 long:-73.989308
-//    Yoko Store - -38.7211738,-62.2589567
-//    Trilogy Games — -38.7143687,-62.2676689
-//    Tienda Arcoiris: — -38.7182771,-62.261953
-//    Don Bosco: — -38.7191509,-62.269599
-//    Don Quijote — -38.7222883,-62.2646183
-//
-//    Agregar una sección “Mapa de librerias” que despliega un mapa con todas estas librerías, con su respectiva annotation mostrando el nombre.
-//    Se tiene que mostrar la posición del usuario
-//    Al hacer tap en el callout accessory se tiene que mostrar un alert con el nombre del local y la dirección obtenida por reverse geocoding.
-//    El alert tiene que tener dos botones, uno “Cancelar” y el otro “Como ir”, al tappear en “Como ir” se tiene que abrir la app de Apple Maps marcando el camino como para ir en auto.
 
 
 

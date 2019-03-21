@@ -65,7 +65,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
                 }
                 
                 mySelf.urlWiki = urlGiven
-                print("URL: \(mySelf.urlWiki!)")
                 
             }
             

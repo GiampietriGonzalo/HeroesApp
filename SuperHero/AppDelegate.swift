@@ -136,42 +136,51 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         var myManager : SuperheroManager?
+        var notificationInfo : [AnyHashable : Any]
+        var heroID : Int32?
+        var tabViewController: UITabBarController?
+        var rootViewController : UINavigationController?
+        var mainStoryboard: UIStoryboard?
+        var detailController: DetailViewController?
         
         if response.notification.request.identifier == "reminderNotification" {
 
-            let notificationInfo = response.notification.request.content.userInfo
-            let heroID = notificationInfo["heroID"] as! Int32
+            notificationInfo = response.notification.request.content.userInfo
+            heroID = notificationInfo["heroID"] as? Int32
             
            //REALIZAR CONSULTA PARA BUSCAR EL HERO POR ID
             myManager = SuperheroManager()
            
             
             //Tomo el tabController principal
-            let tabViewController = self.window!.rootViewController as! UITabBarController
+            tabViewController = self.window!.rootViewController as? UITabBarController
             
             //Tomo a RootViewControlller, el cual es el primero en arreglo del tabController
-            let rootViewController = tabViewController.viewControllers?[0] as? UINavigationController
+            rootViewController = tabViewController?.viewControllers?[0] as? UINavigationController
             
             //Levanta el main storyboard
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             
             //Levanta el DetailViewController
-            let detailController = mainStoryboard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+            detailController = mainStoryboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
             
-            
-            myManager?.getHeroByID(heroID: heroID){ hero in
+            if let id = heroID {
                 
-                detailController.myHero = hero
-                
-                DispatchQueue.main.async {
-                    detailController.paintAll()
+                myManager?.getHeroByID(heroID: id){ hero in
+                    
+                    detailController?.myHero = hero
+                    
+                    DispatchQueue.main.async {
+                        detailController?.paintAll()
+                    }
                 }
-                
             }
+            
+            
 
             //Pusheo al DetailViewController
-            rootViewController?.pushViewController(detailController, animated: true)
-            tabViewController.selectedIndex = 0
+            rootViewController?.pushViewController(detailController!, animated: true)
+            tabViewController?.selectedIndex = 0
            
             completionHandler()
             

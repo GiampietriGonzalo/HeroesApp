@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" ~> 4.7.2
+github "SDWebImage/SDWebImage"
+github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "Alamofire/AlamofireImage" ~> 3.5
