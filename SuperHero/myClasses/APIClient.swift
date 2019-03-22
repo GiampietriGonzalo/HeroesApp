@@ -226,7 +226,7 @@ class APIClient {
                 let heroesResponse: HeroesResponse = try self.decoder.decode(HeroesResponse.self, from: validData)
                 
                 heroToReturn = heroesResponse.data.results.first
-                                completion(heroToReturn)
+                completion(heroToReturn)
                 
             }
             catch {

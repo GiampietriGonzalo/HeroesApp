@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ComicsCollectionViewModel: ComicModelViewProtocol{
+class ComicsCollectionViewModel: ComicViewModelProtocol{
 
     private var myComics: [Comic]?
     private var myManager: SuperheroManager?
@@ -31,11 +31,8 @@ class ComicsCollectionViewModel: ComicModelViewProtocol{
             }
             
             mySelf.myComics = comicsCollection
-
             completion()
         }
-     
-        
     }
     
 

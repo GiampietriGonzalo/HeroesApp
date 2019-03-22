@@ -8,8 +8,7 @@
 
 import Foundation
 
-class HeroDetailViewModel: HeroModelViewProtocol {
-    
+class HeroDetailViewModel: HeroDetailViewModelProtocol {
     
     private let myManager = SuperheroManager()
     private var myHero: Hero?
@@ -37,6 +36,10 @@ class HeroDetailViewModel: HeroModelViewProtocol {
         return myHero?.thumbnail.completePath() ?? ""
     }
     
+    func getComicUrlImage(atIndex: Int) -> String {
+        return comicsHero?[atIndex].thumbnail.completePath() ?? ""
+    }
+    
     func lookForWiki(completion: @escaping (String?) -> ()){
         
         guard let hero = myHero else {
@@ -55,7 +58,7 @@ class HeroDetailViewModel: HeroModelViewProtocol {
         
     }
     
-    func lookForComics(completion: () -> ()){
+    func lookForComics(completion: @escaping () -> ()){
     
         guard let hero = myHero else {
             return
@@ -69,6 +72,7 @@ class HeroDetailViewModel: HeroModelViewProtocol {
             
             mySelf.comicsHero = comicArray
             
+            completion()
         }
         
     }

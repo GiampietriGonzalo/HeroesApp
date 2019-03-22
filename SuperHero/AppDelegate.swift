@@ -29,11 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             else{
                 print("Authorization Succesfull")
             }
-            
-            
-            
         }
-        
         
         UNUserNotificationCenter.current().delegate = self;
         return true
@@ -65,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     // MARK: - Core Data stack
-    
     lazy var persistentContainer: NSPersistentContainer = {
        
         /*
@@ -104,8 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -162,27 +155,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                     
                     DispatchQueue.main.async {
                         detailController?.heroModelView = HeroDetailViewModel(hero: hero)
-            
+                        detailController?.paintData()
                     }
                 }
             }
             
-            
-
             //Pusheo al DetailViewController
             rootViewController?.pushViewController(detailController!, animated: true)
             tabViewController?.selectedIndex = 0
            
             completionHandler()
-            
-            
         }
-        
     }
-    
-    
-    
-    
+ 
 }
 
 

@@ -5,7 +5,6 @@ import SDWebImage
 
 class DetailViewController: UIViewController, UICollectionViewDataSource {
 
-    
     @IBOutlet weak var heroImage: UIImageView!
     @IBOutlet weak var heroId: UILabel!
     @IBOutlet weak var heroName: UILabel!
@@ -14,7 +13,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var wikiButton: UIButton!
     @IBOutlet weak var backImage: UIImageView!
     
-    var heroModelView: HeroModelViewProtocol?
+    var heroModelView: HeroDetailViewModelProtocol?
     
     
     override func viewDidLoad() {
@@ -24,8 +23,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         self.wikiButton.isHidden = true
 
         paintAll()
-        
-       
+
     }
     
     private func paintAll(){
@@ -51,8 +49,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
                 }
             }
         }
-        
-        
     }
     
     private func paintBorder(){
@@ -63,14 +59,11 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     
     }
     
-    private func paintData(){
+    func paintData(){
         
         heroId.text = "ID: \(heroModelView?.getHeroID() ?? 0000 )"
-        
         heroImage!.sd_setImage(with: URL(string: heroModelView?.getHeroUrlImage() ?? ""), placeholderImage: nil, options: [], completed: nil)
-        
         heroName.text = heroModelView?.getHeroName()
-        
         heroDescription.text = "DESCRIPTION\n\(heroModelView?.getHeroDescription() ?? "") "
         
         lookForComics()
@@ -88,9 +81,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
             DispatchQueue.main.async {
                 mySelf.comicsCollection.reloadData()
             }
-            
         }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,7 +89,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         guard let segueId = segue.identifier else{
             return
         }
-        
         
         //Zoomea la imagen del heroe
         if(segueId == "tapSegue"){
@@ -116,10 +106,8 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
             
             let myVC = segue.destination as? ComicViewController
             myVC?.comic = heroModelView?.getComicAt(index: index)
-        
             
         }
-        
         //Abre la wiki del heroe
         if (segueId == "heroWikiSegue"){
             
@@ -129,7 +117,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         
     }
 
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return heroModelView?.getComicsCount() ?? 0
     }
@@ -139,13 +126,12 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
         
       
-        myCell.comicImage.sd_setImage(with: URL(string: heroModelView!.getHeroUrlImage()),  placeholderImage: nil, options: [], completed: nil)
+        myCell.comicImage.sd_setImage(with: URL(string: heroModelView!.getComicUrlImage(atIndex: indexPath.row)),  placeholderImage: nil, options: [], completed: nil)
       
         
         return myCell
     }
     
-   
     /* Accion para ver video trailer; ya no lo uso
    @IBAction func watchVideo(_ sender: UIButton) {
         

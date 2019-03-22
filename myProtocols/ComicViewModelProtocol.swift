@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ComicModelViewProtocol: class {
+protocol ComicViewModelProtocol: class {
     
     func getComicsCount() -> Int
     func lookForComics(completion: @escaping () -> ())

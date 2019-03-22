@@ -5,7 +5,7 @@ class ComicCollectionViewController: UIViewController{
     @IBOutlet weak var comicCollection: UICollectionView!
     @IBOutlet var myView: UIView!
     
-    private var comicModel : ComicModelViewProtocol?
+    private var comicModel : ComicViewModelProtocol?
 
     override func viewDidLoad() {
         
