@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MarvelComicModelview: ComicModelView{
+class ComicsCollectionViewModel: ComicModelViewProtocol{
 
     private var myComics: [Comic]?
     private var myManager: SuperheroManager?

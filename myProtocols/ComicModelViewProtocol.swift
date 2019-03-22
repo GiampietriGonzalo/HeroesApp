@@ -9,12 +9,11 @@
 import Foundation
 import UIKit
 
-protocol ComicModelView: class {
+protocol ComicModelViewProtocol: class {
     
     func getComicsCount() -> Int
     func lookForComics(completion: @escaping () -> ())
     func getComicAt(index: Int) -> Comic?
     func initComicCell(cell: ComicCollectionCell, row: Int)
-    
     
 }

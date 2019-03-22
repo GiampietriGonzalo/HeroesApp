@@ -5,12 +5,12 @@ class ComicCollectionViewController: UIViewController{
     @IBOutlet weak var comicCollection: UICollectionView!
     @IBOutlet var myView: UIView!
     
-    private var comicModel : ComicModelView?
+    private var comicModel : ComicModelViewProtocol?
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        comicModel = MarvelComicModelview()
+        comicModel = ComicsCollectionViewModel()
         lookForComics()
     }
     

@@ -56,17 +56,14 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
         
         if(id == "detailSegue"){
             
-            
             if(searching){
-                myVC.myHero = search?[index.row]
+                myVC.heroModelView = HeroDetailViewModel(hero: search?[index.row] ?? nil)
             }
             else{
-                myVC.myHero = superheroes?[index.row]
+                myVC.heroModelView = HeroDetailViewModel(hero: superheroes?[index.row] ?? nil)
             }
         }
-        
- 
-       
+            
     }
     
     //MARK : TableView

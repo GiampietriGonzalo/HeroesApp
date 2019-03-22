@@ -38,11 +38,10 @@ class CoreDataManager {
         
         let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
         
-        do {
+        do{
+        
             let results = try context?.fetch(fetchRequest)
-            
             print("FUNCIONO FETCH :: \(results!.count)")
-            
             
         }
         catch let error {

@@ -14,10 +14,12 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private var coreDataManager : CoreDataManager?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        self.coreDataManager = CoreDataManager()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound]){ (result,error) in
             
@@ -27,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             else{
                 print("Authorization Succesfull")
             }
+            
+            
             
         }
         
@@ -73,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            
             if let error = error as NSError? {
 
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -156,8 +161,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 myManager?.getHeroByID(heroID: id){ hero in
                     
                     DispatchQueue.main.async {
-                        detailController?.myHero = hero
-                        detailController?.paintAll()
+                        detailController?.heroModelView = HeroDetailViewModel(hero: hero)
+            
                     }
                 }
             }
