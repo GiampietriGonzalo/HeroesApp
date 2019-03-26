@@ -12,26 +12,19 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var comicsCollection: UICollectionView!
     @IBOutlet weak var wikiButton: UIButton!
     @IBOutlet weak var backImage: UIImageView!
-    
+
     var heroModelView: HeroDetailViewModelProtocol?
-    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         self.wikiButton.isHidden = true
-
         paintAll()
-
     }
     
     private func paintAll(){
-        
         paintBorder()
         paintData()
-        lookForWiki()
-        
     }
     
     private func lookForWiki(){
@@ -59,15 +52,26 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     
     }
     
-    func paintData(){
+    private func paintData(){
         
-        heroId.text = "ID: \(heroModelView?.getHeroID() ?? 0000 )"
-        heroImage!.sd_setImage(with: URL(string: heroModelView?.getHeroUrlImage() ?? ""), placeholderImage: nil, options: [], completed: nil)
-        heroName.text = heroModelView?.getHeroName()
-        heroDescription.text = "DESCRIPTION\n\(heroModelView?.getHeroDescription() ?? "") "
         
-        lookForComics()
         
+        heroModelView?.lookForHero(){ [weak self] in
+            
+            guard let mySelf = self else{
+                return
+            }
+ 
+            DispatchQueue.main.async {
+                mySelf.heroId.text = "ID: \(mySelf.heroModelView?.getHeroID() ?? 0000 )"
+                mySelf.heroName.text = mySelf.heroModelView?.getHeroName()
+                mySelf.heroDescription.text = "DESCRIPTION\n\(mySelf.heroModelView?.getHeroDescription() ?? "") "
+            }
+            
+            mySelf.heroImage!.sd_setImage(with: URL(string: mySelf.heroModelView?.getHeroUrlImage() ?? ""), placeholderImage: nil, options: [], completed: nil)
+           
+            mySelf.lookForComics()
+        }
     }
     
     private func lookForComics() {

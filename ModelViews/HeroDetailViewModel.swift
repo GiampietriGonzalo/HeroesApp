@@ -9,14 +9,21 @@
 import Foundation
 
 class HeroDetailViewModel: HeroDetailViewModelProtocol {
-    
-    private let myManager = SuperheroManager()
+   
+
+    private let heroManager = SuperheroManager()
     private var myHero: Hero?
     private var urlWiki: String?
     private var comicsHero: [Comic]?
+    private var heroID : Int32?
     
     init(hero: Hero?){
         myHero = hero
+    }
+    
+    init(heroID: Int32) {
+
+        self.heroID = heroID
         
     }
     
@@ -25,19 +32,19 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     }
     
     func getHeroName() -> String {
-        return myHero?.name ?? ""
+        return myHero?.name ?? "NAME NOT FOUND"
     }
     
     func getHeroDescription() -> String {
-        return myHero?.heroDescription ?? ""
+        return myHero?.heroDescription ?? "DESCRIPTION NOT FOUND"
     }
     
     func getHeroUrlImage() -> String {
-        return myHero?.thumbnail.completePath() ?? ""
+        return myHero?.thumbnail.completePath() ?? "IMAGE NOT FOUND"
     }
     
     func getComicUrlImage(atIndex: Int) -> String {
-        return comicsHero?[atIndex].thumbnail.completePath() ?? ""
+        return comicsHero?[atIndex].thumbnail.completePath() ?? "IMAGE NOT FOUND"
     }
     
     func lookForWiki(completion: @escaping (String?) -> ()){
@@ -46,7 +53,7 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
             return
         }
         
-        myManager.getwikiHero(hero: hero){ [weak self] (urlGiven) in
+        heroManager.getwikiHero(hero: hero){ [weak self] (urlGiven) in
             
             guard let mySelf = self else {
                 return
@@ -64,7 +71,7 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
             return
         }
         
-        myManager.getComicsFromHero(heroID: hero.id) { [weak self] comicArray in
+        heroManager.getComicsFromHero(heroID: hero.id) { [weak self] comicArray in
             
             guard let mySelf = self else {
                 return
@@ -88,4 +95,20 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
         return urlWiki ?? ""
     }
     
+    func lookForHero(heroReady: @escaping () -> Void){
+        
+        if(myHero != nil){
+            heroReady()
+        }
+        else{
+            heroManager.getHeroByID(heroID: heroID ?? 0) { [weak self] hero in
+                
+                guard let mySelf = self else {
+                    return
+                }
+                mySelf.myHero = hero
+                heroReady()
+            }
+        }
+    }
 }

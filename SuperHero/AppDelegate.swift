@@ -120,22 +120,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
      */
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        var myManager : SuperheroManager?
+        //var myManager : SuperheroManager?
         var notificationInfo : [AnyHashable : Any]
         var heroID : Int32?
         var tabViewController: UITabBarController?
         var rootViewController : UINavigationController?
         var mainStoryboard: UIStoryboard?
         var detailController: DetailViewController?
+        var detailViewModel : HeroDetailViewModel?
         
         if response.notification.request.identifier == "reminderNotification" {
 
             notificationInfo = response.notification.request.content.userInfo
             heroID = notificationInfo["heroID"] as? Int32
+            detailViewModel = HeroDetailViewModel(heroID: heroID ?? 0)
             
-           //REALIZAR CONSULTA PARA BUSCAR EL HERO POR ID
-            myManager = SuperheroManager()
-           
+            //REALIZAR CONSULTA PARA BUSCAR EL HERO POR ID
+            //myManager = SuperheroManager()
             
             //Tomo el tabController principal
             tabViewController = self.window!.rootViewController as? UITabBarController
@@ -149,21 +150,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             //Levanta el DetailViewController
             detailController = mainStoryboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
             
-            if let id = heroID {
-                
-                myManager?.getHeroByID(heroID: id){ hero in
-                    
-                    DispatchQueue.main.async {
-                        detailController?.heroModelView = HeroDetailViewModel(hero: hero)
-                        detailController?.paintData()
-                    }
-                }
-            }
             
+            detailController?.heroModelView = detailViewModel
+            //detailController?.paintData()
+        
             //Pusheo al DetailViewController
             rootViewController?.pushViewController(detailController!, animated: true)
             tabViewController?.selectedIndex = 0
-           
+            
             completionHandler()
         }
     }

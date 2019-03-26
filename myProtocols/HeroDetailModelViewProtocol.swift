@@ -20,4 +20,5 @@ protocol HeroDetailViewModelProtocol: class{
     func getComicsCount() -> Int
     func getUrlWiki() -> String
     func getComicUrlImage(atIndex: Int) -> String
+    func lookForHero(heroReady: @escaping () -> Void)
 }
