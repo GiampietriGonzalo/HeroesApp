@@ -12,7 +12,7 @@ import SDWebImage
 import UserNotifications
 import CoreData
 
-class HeroCollectionViewModel{
+class HeroCollectionViewModel: HeroCollectionViewModelProtocol {
     
     private var search: [Hero]? = []
     private var searching = false
@@ -121,14 +121,12 @@ class HeroCollectionViewModel{
             for h in sup{
                 
                 if (h.name.contains(searchText)) {
-                    
                     search = sup.filter({$0.name.prefix(searchText.count) == searchText })           
                 }
             }
         }
         
         searching = true
-       
         completion()
     }
     

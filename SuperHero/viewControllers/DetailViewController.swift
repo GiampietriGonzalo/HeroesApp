@@ -10,15 +10,13 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var heroName: UILabel!
     @IBOutlet weak var heroDescription: UILabel!
     @IBOutlet weak var comicsCollection: UICollectionView!
-    @IBOutlet weak var wikiButton: UIButton!
+    @IBOutlet weak var wikiButton: UIBarButtonItem!
     @IBOutlet weak var backImage: UIImageView!
 
     var heroModelView: HeroDetailViewModelProtocol?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        self.wikiButton.isHidden = true
         paintAll()
     }
     
@@ -26,24 +24,8 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
         paintBorder()
         paintData()
     }
-    
-    private func lookForWiki(){
-        
-        heroModelView?.lookForWiki { [weak self] (urlGiven) in
-            
-            guard let mySelf = self else {
-                return
-            }
-            
-            
-            if let url = urlGiven, url != "" {
-                DispatchQueue.main.sync {
-                    mySelf.wikiButton.isHidden = false
-                }
-            }
-        }
-    }
-    
+
+
     private func paintBorder(){
         
         heroImage.layer.borderWidth = 3.0
@@ -53,28 +35,30 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     }
     
     private func paintData(){
-        
-        
-        
+
         heroModelView?.lookForHero(){ [weak self] in
             
             guard let mySelf = self else{
                 return
             }
- 
-            DispatchQueue.main.async {
-                mySelf.heroId.text = "ID: \(mySelf.heroModelView?.getHeroID() ?? 0000 )"
-                mySelf.heroName.text = mySelf.heroModelView?.getHeroName()
-                mySelf.heroDescription.text = "DESCRIPTION\n\(mySelf.heroModelView?.getHeroDescription() ?? "") "
-            }
-            
+
+            mySelf.performSelector(onMainThread: #selector(mySelf.setLablesData), with: nil, waitUntilDone: true)
             mySelf.heroImage!.sd_setImage(with: URL(string: mySelf.heroModelView?.getHeroUrlImage() ?? ""), placeholderImage: nil, options: [], completed: nil)
-           
-            mySelf.lookForComics()
         }
+        
+         lookForComics()
     }
     
-    private func lookForComics() {
+    @objc private func setLablesData(){
+        
+        heroId.text = "ID: \(heroModelView?.getHeroID() ?? 0000 )"
+        heroName.text = heroModelView?.getHeroName()
+        heroDescription.text = "DESCRIPTION\n\(heroModelView?.getHeroDescription() ?? "") "
+        
+        disableWikiButton()
+    }
+    
+   private func lookForComics() {
         
         heroModelView?.lookForComics { [weak self] in
             
@@ -82,43 +66,54 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
                 return
             }
             
-            DispatchQueue.main.async {
-                mySelf.comicsCollection.reloadData()
-            }
+            mySelf.performSelector(onMainThread: #selector(mySelf.reloadTableViewData), with: nil, waitUntilDone: true)
+            mySelf.performSelector(onMainThread: #selector(mySelf.enabledWikiButton), with: true, waitUntilDone: true)
         }
     }
     
+    @objc private func reloadTableViewData(){
+        comicsCollection.reloadData()
+    }
+    
+    @objc private func disableWikiButton(){
+        wikiButton.isEnabled = false
+    }
+    
+    @objc private func enabledWikiButton(){
+        wikiButton.isEnabled = true;
+    }
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        guard let segueId = segue.identifier else{
+        guard let segueId = segue.identifier, let id = SegueId(rawValue: segueId) else{
             return
         }
         
-        //Zoomea la imagen del heroe
-        if(segueId == "tapSegue"){
-            let myVC = segue.destination as? HeroImageZoomViewController
-            myVC?.heroImage = heroModelView?.getHeroUrlImage()
+        switch id {
+            case .tapImage: zoomHeroImage(segue: segue)
+            case .comicDetail: gotToWiki(segue: segue, sender: sender)
+            case .heroWiki: goToComicDetail(segue: segue)
+        }
+    }
+    
+    private func zoomHeroImage(segue: UIStoryboardSegue){
+        let myVC = segue.destination as? HeroImageZoomViewController
+        myVC?.heroImage = heroModelView?.getHeroUrlImage()
+    }
+
+    private func gotToWiki(segue: UIStoryboardSegue,sender: Any?){
+        
+        guard let myCell = sender as? ComicCollectionCell ,let index = comicsCollection.indexPath(for: myCell)?.row else {
+            return
         }
         
-        
-        //Va al detalle del comic seleccionado
-        if (segueId == "comicSegue"){
-            
-            guard let myCell = sender as? ComicCollectionCell ,let index = comicsCollection.indexPath(for: myCell)?.row else {
-                return
-            }
-            
-            let myVC = segue.destination as? ComicViewController
-            myVC?.comic = heroModelView?.getComicAt(index: index)
-            
-        }
-        //Abre la wiki del heroe
-        if (segueId == "heroWikiSegue"){
-            
-            let myVC = segue.destination as? WikiWebViewController
-            myVC?.wikiWeb = heroModelView?.getUrlWiki()
-        }
-        
+        let myVC = segue.destination as? ComicViewController
+        myVC?.comic = heroModelView?.getComicAt(index: index)
+    }
+    
+    private func goToComicDetail(segue: UIStoryboardSegue){
+        let myVC = segue.destination as? WikiWebViewController
+        myVC?.wikiWeb = heroModelView?.getUrlWiki()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -128,11 +123,8 @@ class DetailViewController: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
-        
-      
         myCell.comicImage.sd_setImage(with: URL(string: heroModelView!.getComicUrlImage(atIndex: indexPath.row)),  placeholderImage: nil, options: [], completed: nil)
       
-        
         return myCell
     }
     

@@ -13,7 +13,6 @@ class Hero: NSManagedObject,Decodable{
     @NSManaged var thumbnail: Thumbnail
     @NSManaged var urls: Set<URLs>
     
-    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -22,16 +21,15 @@ class Hero: NSManagedObject,Decodable{
         case urls
     }
     
- 
     required convenience init(from decoder: Decoder) throws {
         
         guard let ent = HeroesResponse.hasValidContext(decoder: decoder, entityName: "Hero") else {
             fatalError("Failed to decode Subject!")
         }
-        
+
         //INICIALIZADOR DEL SNManagedObject
         self.init(entity: ent.0, insertInto: ent.1)
-        
+    
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int32.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
@@ -39,9 +37,7 @@ class Hero: NSManagedObject,Decodable{
         self.thumbnail = try container.decode(Thumbnail.self
             , forKey: .thumbnail)
         self.urls = try container.decode(Set<URLs>.self, forKey: .urls)
-        
     }
-    
 }
 
 enum WikiType: String, Decodable {

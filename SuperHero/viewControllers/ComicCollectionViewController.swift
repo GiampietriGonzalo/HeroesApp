@@ -23,18 +23,16 @@ class ComicCollectionViewController: UIViewController{
                 return
             }
             
-            DispatchQueue.main.async {
-                mySelf.comicCollection.reloadData()
-            }
-            
+            mySelf.performSelector(onMainThread: #selector(mySelf.reloadComicCollectionData), with: nil, waitUntilDone: true)
         }
     }
-        
     
+    @objc private func reloadComicCollectionData(){
+        comicCollection.reloadData()
+    }
 }
 
 extension ComicCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return comicModel!.getComicsCount()
@@ -43,7 +41,6 @@ extension ComicCollectionViewController: UICollectionViewDataSource, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let myCell = comicCollection.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
-        
         comicModel?.initComicCell(cell: myCell, row: indexPath.row)
         
         return myCell
@@ -64,11 +61,7 @@ extension ComicCollectionViewController: UICollectionViewDataSource, UICollectio
             
             let myVC = segue.destination as? ComicViewController
             myVC?.comic = comicModel?.getComicAt(index: index)
-            
         }
-        
     }
-    
-   
 }
 

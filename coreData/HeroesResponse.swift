@@ -15,9 +15,7 @@ class HeroesResponse: NSManagedObject, CodableHasContextChecker, Decodable {
             fatalError("Failed to decode Subject!")
         }
         
-        
         self.init(entity: ent.0, insertInto: ent.1)
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.data = try container.decode(HeroesData.self, forKey: .data)
     }

@@ -4,18 +4,13 @@ import CoreLocation
 
 class MapViewController: UIViewController{
 
-    
     @IBOutlet weak var myMapView: MKMapView!
-    
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-      setInitialLocation()
-      addAnnotation()
-
+        setInitialLocation()
+        addAnnotation()
     }
     
 
@@ -38,17 +33,13 @@ class MapViewController: UIViewController{
         let donBoscoAnnotation = CustomAnnotation(title: "Don Bosco", subtitle: "", coordinate: CLLocationCoordinate2D(latitude: -38.7191509, longitude: -62.269599))
         let donQuijoteAnnotation = CustomAnnotation(title: "Don Quijote", subtitle: "", coordinate: CLLocationCoordinate2D(latitude: -38.7222883, longitude: -62.2646183))
         
-        
         myMapView.addAnnotation(kuroganeAnnotation)
         myMapView.addAnnotation(yokoAnnotation)
         myMapView.addAnnotation(donQuijoteAnnotation)
         myMapView.addAnnotation(donBoscoAnnotation)
         myMapView.addAnnotation(arcoIrisAnnotation)
         myMapView.addAnnotation(trilogyAnnotation)
-        
     }
-    
-    
 }
     
     
@@ -64,25 +55,21 @@ extension MapViewController: MKMapViewDelegate {
             var viewToReturn: MKAnnotationView
             
             if let dequeuedView = myMapView.dequeueReusableAnnotationView(withIdentifier: "marker") as? MKMarkerAnnotationView {
-                
                 dequeuedView.annotation = myAnnotation
                 viewToReturn = dequeuedView
-                
-            } else {
+            }
+            else {
                 viewToReturn = MKMarkerAnnotationView(annotation: myAnnotation, reuseIdentifier: "marker")
                 viewToReturn.canShowCallout = true
                 viewToReturn.calloutOffset = CGPoint(x: -5, y: 5)
                 viewToReturn.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             }
-            
-            
+
             return viewToReturn
         }
 
-    
         //ANNOTATION REACTION
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-            
             
             guard let myAnnotation = view.annotation else{
                 return
@@ -91,13 +78,8 @@ extension MapViewController: MKMapViewDelegate {
             let myGeocoder: CLGeocoder = CLGeocoder()
             //let location = CLLocation(latitude: myAnnotation.coordinate.latitude, longitude: myAnnotation.coordinate.longitude)
             
-            myGeocoder.reverseGeocodeLocation(CLLocation(latitude:myAnnotation.coordinate.latitude, longitude: myAnnotation.coordinate.longitude), completionHandler: {
-                
-                (placemarks, error) in
-               
-                
-                
-                
+            myGeocoder.reverseGeocodeLocation(CLLocation(latitude:myAnnotation.coordinate.latitude, longitude: myAnnotation.coordinate.longitude), completionHandler: { (placemarks, error) in
+
                 guard error == nil else {
                     return
                 }
@@ -107,10 +89,9 @@ extension MapViewController: MKMapViewDelegate {
                 
                 alertController.addAction(UIAlertAction(title: "Hey Ho Let's GO!!!!", style: .default, handler: { (action) in
                     
-                    
                     if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-                        self.myMapView.showsUserLocation = true
                         
+                        self.myMapView.showsUserLocation = true
                         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: myAnnotation.coordinate))
                         
                         if let titleAnnotation = myAnnotation.title {
@@ -118,7 +99,6 @@ extension MapViewController: MKMapViewDelegate {
                         }
                         
                         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-
                     }
                     else{
                         self.locationManager.requestWhenInUseAuthorization()
@@ -128,9 +108,7 @@ extension MapViewController: MKMapViewDelegate {
 
                 self.present(alertController, animated: true, completion: nil) }
             )
-            
         }
-  
 }
 
 

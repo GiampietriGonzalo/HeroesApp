@@ -34,7 +34,6 @@ class ComicsCollectionViewModel: ComicViewModelProtocol{
             completion()
         }
     }
-    
 
     func getComicAt(index: Int) -> Comic? {
         return myComics?[index] ?? nil

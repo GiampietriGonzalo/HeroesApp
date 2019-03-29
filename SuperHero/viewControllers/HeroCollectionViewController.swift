@@ -7,14 +7,14 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
     
     @IBOutlet weak var heroTable: UITableView!
     private var searching = false
-    var heroCollectionModel : HeroCollectionViewModel?
+    var heroCollectionModel : HeroCollectionViewModelProtocol?
     
     override func viewDidLoad() {
 
         super.viewDidLoad()
         heroCollectionModel = HeroCollectionViewModel()
         lookForHeroes()
-   
+
     }
     
     private func lookForHeroes(){
@@ -25,10 +25,12 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
                 return
             }
             
-            DispatchQueue.main.async {
-                mySelf.heroTable.reloadData()
-            }
+            mySelf.performSelector(onMainThread: #selector(mySelf.reloadHeroTableData), with: nil, waitUntilDone: true)
         }
+    }
+    
+    @objc private func reloadHeroTableData(){
+        heroTable.reloadData()
     }
     
     //MARK : SEGUE
@@ -41,7 +43,6 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
         let myVC = segue.destination as! DetailViewController
         
         if(id == "detailSegue"){
-            
             myVC.heroModelView = HeroDetailViewModel(hero: heroCollectionModel?.getHero(index: index.row) ?? nil)
         }
     }
@@ -57,10 +58,8 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
         
         let cell = heroTable.dequeueReusableCell(withIdentifier: "heroCell", for: indexPath) as! HeroCell
-      
         paintHeroCell(cell: cell, row: indexPath.row)
         
         return cell
@@ -70,21 +69,18 @@ class HeroCollectionViewController: UIViewController, UITableViewDataSource, UIT
     private func paintHeroCell(cell: HeroCell, row: Int){
         
         let urlImage = heroCollectionModel?.getHeroUrlImage(atIndex: row)
-        
+
         cell.heroimg.sd_setImage(with: URL(string: urlImage ?? ""),  placeholderImage: nil, options: [], completed: nil)
-        
         cell.heroName.text =  heroCollectionModel?.getHeroName(indexAt: row)
         cell.notificationButton.tag = row
     }
     
     @IBAction func addSeeLaterNotification(_ sender: Any) {
         
-        heroCollectionModel?.addNotificaciont(tag: (sender as! UIButton).tag)
-    
         let seeLaterButton = sender as! UIButton
-      
-        heroCollectionModel?.addNotificaciont(tag: seeLaterButton.tag)
         
+        heroCollectionModel?.addNotificaciont(tag: (sender as! UIButton).tag)
+        heroCollectionModel?.addNotificaciont(tag: seeLaterButton.tag)
         seeLaterButton.isHidden = true
     }
 }
@@ -100,9 +96,7 @@ extension HeroCollectionViewController: UISearchBarDelegate{
                 return
             }
             
-            DispatchQueue.main.async {
-                mySelf.heroTable.reloadData()
-            }
+            mySelf.performSelector(onMainThread: #selector(mySelf.reloadHeroTableData), with: nil, waitUntilDone: true)
         }
     }
     

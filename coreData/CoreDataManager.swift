@@ -19,8 +19,6 @@ class CoreDataManager {
      */
     func store(/*contex: NSManagedObjectContext*/) {
         
-        //let Heroes = HeroesResponse(context: contex)
-        
         do {
             try context?.save()
             print("STORE EXITOSO!")
@@ -77,26 +75,41 @@ class CoreDataManager {
      en la base. Dependiendo del valor del booleano, va a borrar el primero o todos
      */
     func delete(/*contex: NSManagedObjectContext*/ onlyFirstValue: Bool) {
+   
+        if onlyFirstValue {
+            deleteFirstValue(context: context)
+        }
+        else {
+            deleteAllValues(context: context)
+        }
+    }
+    
+    private func deleteFirstValue(context: NSManagedObjectContext?){
         
         do {
-            if onlyFirstValue {
-                let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-                let results = try context?.fetch(fetchRequest)
-                if let aFirst = results?.first {
-                    context?.delete(aFirst)
-                }
-            }
-            else {
-                let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-                let batchDelete = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
-                
-                try context?.execute(batchDelete)
-                print("DELETE :: SUCESSFULL")
+            let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
+            let results = try context?.fetch(fetchRequest)
+            
+            if let aFirst = results?.first {
+                context?.delete(aFirst)
             }
         }
         catch let error {
             print("FALLO EL DELETE! :: \(error)")
         }
+    }
+    
+    private func deleteAllValues(context: NSManagedObjectContext?){
+        
+        do {
+            let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
+            let batchDelete = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+            try context?.execute(batchDelete)
+        }
+        catch let error {
+            print("FALLO EL DELETE! :: \(error)")
+        }
+        print("DELETE :: SUCESSFULL")
     }
     
     func saveContext () {
@@ -109,7 +122,6 @@ class CoreDataManager {
             do {
                 try myContext.save()
             } catch {
-                
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }

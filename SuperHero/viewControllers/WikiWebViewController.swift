@@ -8,20 +8,16 @@ class WikiWebViewController: UIViewController, WKNavigationDelegate {
     var wikiWeb: String?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         pintAll()
-        
     }
     
     func pintAll(){
-        
         webView.navigationDelegate = self
         self.view.bringSubviewToFront(self.loadWikiWeb)
         let url = URL(string: wikiWeb!)
         webView.load(URLRequest(url: url!))
         webView.allowsBackForwardNavigationGestures = true
-        
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!){
@@ -36,5 +32,4 @@ class WikiWebViewController: UIViewController, WKNavigationDelegate {
     @IBAction func goBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
 }

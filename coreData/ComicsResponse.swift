@@ -3,7 +3,6 @@ import CoreData
 
 class ComicsResponse: NSManagedObject, CodableHasContextChecker, Decodable {
     
-    
     @NSManaged var data: ComicsData
     
     enum CodingKeys: String, CodingKey {
@@ -17,8 +16,6 @@ class ComicsResponse: NSManagedObject, CodableHasContextChecker, Decodable {
         }
         
         self.init(entity: ent.0, insertInto: ent.1)
-        
-       
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.data = try container.decode(ComicsData.self, forKey: .data)
     }

@@ -6,12 +6,9 @@ class HeroImageZoomViewController: UIViewController {
     var heroImage: String?
     @IBOutlet weak var img: UIImageView!
     
-    
     override func viewDidLoad() {
-       
         super.viewDidLoad()
         paintAll()
-        
     }
     
     public func paintAll(){
@@ -25,10 +22,5 @@ class HeroImageZoomViewController: UIViewController {
     
     @IBAction func exitButton(_ sender: UIButton) {
         dismiss(animated: true, completion:nil)
-    }
-    
-   
-    
-    
-    
+    } 
 }

@@ -13,7 +13,6 @@ class ComicsData: NSManagedObject, Decodable {
         case results
     }
     
-    
     required convenience init(from decoder: Decoder) throws {
         guard let ent = ComicsResponse.hasValidContext(decoder: decoder, entityName: "ComicsData") else {
             fatalError("Failed to decode Subject!")

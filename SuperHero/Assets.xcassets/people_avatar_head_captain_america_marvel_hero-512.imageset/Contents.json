@@ -2,7 +2,6 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "people_avatar_head_captain_america_marvel_hero-512.png",
       "scale" : "1x"
     },
     {
@@ -11,6 +10,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "people_avatar_head_captain_america_marvel_hero-512.png",
       "scale" : "3x"
     }
   ],

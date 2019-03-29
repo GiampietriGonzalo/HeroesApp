@@ -14,7 +14,5 @@ class CustomAnnotation: NSObject, MKAnnotation{
         self.coordinate = coordinate
         
         super.init()
-  
     }
-    
 }

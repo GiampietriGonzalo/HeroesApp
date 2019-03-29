@@ -170,46 +170,45 @@ class APIClient {
         
         var wikiURL: String?
         
-        dataTask = urlSession?.dataTask(with: urlRequest! , completionHandler: { (data,response,error) in
+        dataTask = urlSession?.dataTask(with: urlRequest! , completionHandler: { [weak self] (data,response,error) in
             
-            guard let dataPosta = data else {
+            guard let dataPosta = data, let mySelf = self else {
                 return
             }
             
             do{
-                
                 let heroResponse : HeroesResponse = try decoder.decode(HeroesResponse.self, from: dataPosta)
-                
                 let hero = heroResponse.data.results.first
                 
                 if let heroNotNil = hero {
-                    
-                    for url in heroNotNil.urls {
-                        
-                        if url.realType == .wiki {
-                            wikiURL = url.url
-                        }
-                    }
+                    wikiURL = mySelf.setWikiUrlFromNotification(urls: heroNotNil.urls)
                 }
                 
-                
                 completion(wikiURL,nil)
-                
             }
             catch{
-                
                 print("PARSING ERROR AT GET WIKI FROM HERO\n\(error.localizedDescription)")
-                
-                completion (nil,error)
+                completion ("ULR NOT FOUND",error)
             }
         })
         
         dataTask?.resume()
+    }
+    
+    private func setWikiUrlFromNotification(urls: Set<URLs>) -> String {
         
+        var wikiURL = "URL NOT FOUND"
+        
+        for url in urls {
+            if url.realType == .wiki {
+                wikiURL = url.url
+            }
+        }
+        
+        return wikiURL
     }
     
     func searchHerobyID(heroID: Int32,completion: @escaping (Hero?)->()){
-        
 
         var heroToReturn : Hero?
         pathRequest = "\(APIClient.marvelUrl)id=\(heroID)&apikey=\(APIClient.publicKey)&hash=\(APIClient.hash)&ts=1"
@@ -224,19 +223,15 @@ class APIClient {
             do {
     
                 let heroesResponse: HeroesResponse = try self.decoder.decode(HeroesResponse.self, from: validData)
-                
                 heroToReturn = heroesResponse.data.results.first
-                completion(heroToReturn)
                 
+                completion(heroToReturn)
             }
             catch {
                 print("ERROR AT searchHeroByID\n \(error.localizedDescription)")
                 completion(nil)
             }
-            
         })
-        
         dataTask?.resume()
     }
-    
 }

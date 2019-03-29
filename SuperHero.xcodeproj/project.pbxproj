@@ -22,6 +22,9 @@
 		7A8C03DF2244292700BE9051 /* HeroDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C03DD2244292700BE9051 /* HeroDetailViewModel.swift */; };
 		7A8C03E422442CE400BE9051 /* HeroDetailModelViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C03E322442CE400BE9051 /* HeroDetailModelViewProtocol.swift */; };
 		7A8C03E522442CE400BE9051 /* HeroDetailModelViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C03E322442CE400BE9051 /* HeroDetailModelViewProtocol.swift */; };
+		7AA2F8CA224E3C0000DA1476 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAB54B9224D4F1700EDD03B /* Enums.swift */; };
+		7AA2F8CC224E3FC000DA1476 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2F8CB224E3FC000DA1476 /* Router.swift */; };
+		7AAB54BA224D4F1700EDD03B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAB54B9224D4F1700EDD03B /* Enums.swift */; };
 		7AAF4F42223979F600C4737A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB361542231BCD20066AE9B /* DetailViewController.swift */; };
 		7AAF4F4322397A4C00C4737A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A03963222272390001E7E4E /* Main.storyboard */; };
 		7AAF4F452239884D00C4737A /* WikiWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF4F442239884D00C4737A /* WikiWebViewController.swift */; };
@@ -144,6 +147,8 @@
 		7A3C2AC322452C1200339306 /* HeroCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCollectionViewModel.swift; sourceTree = "<group>"; };
 		7A8C03DD2244292700BE9051 /* HeroDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewModel.swift; sourceTree = "<group>"; };
 		7A8C03E322442CE400BE9051 /* HeroDetailModelViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailModelViewProtocol.swift; sourceTree = "<group>"; };
+		7AA2F8CB224E3FC000DA1476 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		7AAB54B9224D4F1700EDD03B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		7AAF4F442239884D00C4737A /* WikiWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiWebViewController.swift; sourceTree = "<group>"; };
 		7AB361522231A9D60066AE9B /* SuperheroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroManager.swift; sourceTree = "<group>"; };
 		7AB361542231BCD20066AE9B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +299,7 @@
 				7AB7BC792232EFB300CB7944 /* APIClient.swift */,
 				7ABBAA54223AEA750094B4F8 /* CustomAnnotation.swift */,
 				7AD2351B2243DF8F00CA2D2D /* Connectivity.swift */,
+				7AAB54B9224D4F1700EDD03B /* Enums.swift */,
 			);
 			name = myClasses;
 			path = SuperHero/myClasses;
@@ -381,6 +387,7 @@
 				7AD2352422440DA500CA2D2D /* ComicViewModelProtocol.swift */,
 				7A8C03E322442CE400BE9051 /* HeroDetailModelViewProtocol.swift */,
 				7A3C2AC022452C0700339306 /* HeroCollectionViewModelProtocol.swift */,
+				7AA2F8CB224E3FC000DA1476 /* Router.swift */,
 			);
 			path = myProtocols;
 			sourceTree = "<group>";
@@ -580,6 +587,7 @@
 				7AB7BC7A2232EFB300CB7944 /* APIClient.swift in Sources */,
 				7AD235162243D18E00CA2D2D /* ComicData.swift in Sources */,
 				7A03966322272CAD001E7E4E /* HeroCollectionViewController.swift in Sources */,
+				7AA2F8CC224E3FC000DA1476 /* Router.swift in Sources */,
 				7A8C03DE2244292700BE9051 /* HeroDetailViewModel.swift in Sources */,
 				7A03963122272390001E7E4E /* ViewController.swift in Sources */,
 				7AC0298C22384CD800460238 /* ComicCollectionViewController.swift in Sources */,
@@ -606,6 +614,7 @@
 				7AD2351F2243E3A500CA2D2D /* CoreDataManager.swift in Sources */,
 				7A03965E22272B9D001E7E4E /* Hero.swift in Sources */,
 				7ADA3146223FBCE300F553A3 /* Model.xcdatamodeld in Sources */,
+				7AAB54BA224D4F1700EDD03B /* Enums.swift in Sources */,
 				7ABBAA4D223AC7D10094B4F8 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +623,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA2F8CA224E3C0000DA1476 /* Enums.swift in Sources */,
 				7AD2351D2243E2C300CA2D2D /* Connectivity.swift in Sources */,
 				7AD234DF2243BA9400CA2D2D /* CodableHasContextChecker.swift in Sources */,
 				7AD234E02243BA9400CA2D2D /* Model.xcdatamodeld in Sources */,

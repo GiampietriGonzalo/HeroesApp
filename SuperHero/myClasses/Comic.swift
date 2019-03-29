@@ -23,7 +23,6 @@ class Comic: NSManagedObject, Decodable{
         case thumbnail
     }
     
-    
     required convenience init(from decoder: Decoder) throws {
         
         guard let ent = ComicsResponse.hasValidContext(decoder: decoder, entityName: "Comic") else {

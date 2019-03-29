@@ -23,14 +23,12 @@ class VideoViewController: UIViewController  {
         let frame = CGRect(x: 0 , y: height * 0.30, width: width , height: height * 0.25)
         
         videoPlayerViewController.view.frame = frame
-        
         videoPlayerViewController.player = AVPlayer(url: URL(fileURLWithPath: path))
-        
         videoView.addSubview(videoPlayerViewController.view)
         
         //videoPlayerViewController.view.frame = videoView.bounds
         //videoPlayerViewController.player?.play()
-        
+
     }
     
 }
