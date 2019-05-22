@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/myClasses/SuperheroManager.swift"
-            timestampString = "575575267.521638"
+            timestampString = "576773485.150605"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "getSuperheroesFromAPI(completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/myClasses/APIClient.swift"
-            timestampString = "575575267.521821"
+            timestampString = "576687469.092437"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "getWiki(hero:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/WikiWebViewController.swift"
-            timestampString = "575575267.521888"
+            timestampString = "580072980.659133"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/myClasses/APIClient.swift"
-            timestampString = "575575267.5220931"
+            timestampString = "576687469.09255"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "getWiki(hero:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/HeroCollectionViewController.swift"
-            timestampString = "575575267.522405"
+            timestampString = "576687469.092641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
@@ -362,7 +362,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/HeroCollectionViewController.swift"
-            timestampString = "575575267.5224791"
+            timestampString = "576687469.092683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
@@ -378,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/HeroCollectionViewController.swift"
-            timestampString = "575575267.522545"
+            timestampString = "576687469.092728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
@@ -394,43 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ModelViews/HeroCollectionViewModel.swift"
-            timestampString = "575575267.522603"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "getHeroesCount()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ModelViews/HeroCollectionViewModel.swift"
             timestampString = "575575267.52267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
-            landmarkName = "getHeroesCollection()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ModelViews/HeroCollectionViewModel.swift"
-            timestampString = "575575267.522737"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
             landmarkName = "getHeroesCollection()"
             landmarkType = "7">
          </BreakpointContent>
@@ -457,22 +425,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ModelViews/HeroCollectionViewModel.swift"
-            timestampString = "575575267.522838"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "addNotificaciont(tag:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SuperHero/AppDelegate.swift"
             timestampString = "575239741.521625"
             startingColumnNumber = "9223372036854775807"
@@ -490,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/myClasses/SuperheroManager.swift"
-            timestampString = "575575267.522945"
+            timestampString = "576773485.151428"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "getHeroByID(heroID:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,7 +458,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/WikiWebViewController.swift"
-            timestampString = "575575267.522999"
+            timestampString = "580072980.659493"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
@@ -522,12 +474,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/DetailViewController.swift"
-            timestampString = "575575267.523066"
+            timestampString = "576687469.093151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "goToComicDetail(segue:)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "zoomHeroImage(segue:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -538,12 +490,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/viewControllers/DetailViewController.swift"
-            timestampString = "575575267.523137"
+            timestampString = "576687469.093199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "goToComicDetail(segue:)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "zoomHeroImage(segue:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,12 +506,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperHero/myClasses/SuperheroManager.swift"
-            timestampString = "575575267.523196"
+            timestampString = "576773485.151713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "getwikiHero(hero:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SuperHero/myClasses/SuperheroManager.swift"
+            timestampString = "576773485.151933"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getSuperheroesFromAPI(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
