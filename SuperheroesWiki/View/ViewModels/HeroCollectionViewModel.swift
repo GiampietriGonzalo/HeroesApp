@@ -17,74 +17,40 @@ class HeroCollectionViewModel: HeroCollectionViewModelProtocol {
     private var search: [Hero]? = []
     private var searching = false
     private var superheroes: [Hero]?
-    private var manager: SuperheroManager?
+    private var dataProvider: HeroesDataProvider?
     
     init(){
         superheroes = []
-        manager = SuperheroManager()
+        dataProvider = MarvelAPIClient()
         search = []
     }
     
-    func lookForHeroes(completion: @escaping () -> ()){
-        manager?.getSuperheroesFromAPI{ [weak self] heroes in
-            guard let mySelf = self else { return }
-            mySelf.superheroes = heroes
+    func lookForHeroes(completion: @escaping CompletionAlias.EmptyCompletion){
+        dataProvider?.getSuperheroes{ [weak self] heroes in
+            guard let self = self else { return }
+            self.superheroes = heroes
             completion()
         }
     }
     
     func getHeroesCount() -> Int {
-        if searching {
-            return search?.count ?? 0
-        }
-        return superheroes?.count ?? 0
+        return (searching ? search?.count : superheroes?.count) ?? 0
     }
     
-    func getHeroesCollection() -> [Hero]? {
-        var toReturn : [Hero]?
-        
-        if searching{
-            toReturn = search
-        } else {
-            toReturn = superheroes
-        }
-        return toReturn
+    func getHeroes() -> [Hero]? {
+       return searching ? search : superheroes
     }
     
     func getHeroUrlImage(atIndex: Int) -> String? {
-        var url : String?
-        
-        if searching{
-            url = search?[atIndex].thumbnail.completePath()
-        } else {
-            url = superheroes?[atIndex].thumbnail.completePath()
-        }
-        return url
+        return searching ? search?[atIndex].thumbnail.completePath() : superheroes?[atIndex].thumbnail.completePath()
     }
     
     func getHeroName(indexAt: Int) -> String? {
-        var name : String?
-        
-        if searching {
-            name = search?[indexAt].name
-        } else {
-            name = superheroes?[indexAt].name
-        }
-        return name ?? "ERROR 404: NAME NOT FOUND"
+        return (searching ? search?[indexAt].name : superheroes?[indexAt].name) ?? Messages.NAME_NOT_FOUND
     }
     
     func getHero(index: Int) -> Hero? {
-        
-        var heroToReturn: Hero?
-        
-        if(searching){
-            heroToReturn = search?[index]
-        }
-        else{
-            heroToReturn = superheroes?[index]
-        }
-        
-        return heroToReturn
+        return searching ? search?[index] : superheroes?[index]
     }
     
     func searchLogic(searchText: String, completion: @escaping () -> ()){
@@ -119,7 +85,6 @@ class HeroCollectionViewModel: HeroCollectionViewModelProtocol {
         }
         
         heroAux = getHero(index: tag)!
-        //Paso el hero por userInfo del notifiaction
         content = buildContent()
         content.userInfo = ["heroID": heroAux.id]
         
@@ -129,18 +94,17 @@ class HeroCollectionViewModel: HeroCollectionViewModelProtocol {
         request = UNNotificationRequest(identifier: "reminderNotification", content: content, trigger: trigger)
         
         center.add(request, withCompletionHandler: { error in
-            if let myError = error {
-                print("Error de notification:\n\(myError.localizedDescription)")
+            if let error = error {
+                print(Messages.NOTIFICATION_ERROR_MESSAGE + ": \(error)")
             }
         })
-      
     }
     
     private func buildContent() -> UNMutableNotificationContent{
         let content = UNMutableNotificationContent()
-        content.title = "Reminder"
-        content.subtitle = "You MUST see this!"
-        content.body = "You must see the awesome superhero wiki ;)"
+        content.title = Messages.NOTIFICATION_REMINDER_TITLE
+        content.subtitle = Messages.NOTIFICATION_REMINDER_SUBTITLE
+        content.body = Messages.NOTIFICATION_REMINDER_BODY
         content.sound = UNNotificationSound.default
         return content
     }

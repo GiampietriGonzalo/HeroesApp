@@ -11,7 +11,7 @@ import Foundation
 protocol HeroCollectionViewModelProtocol {    
     func lookForHeroes(completion: @escaping () -> ())
     func getHeroesCount() -> Int
-    func getHeroesCollection() -> [Hero]?
+    func getHeroes() -> [Hero]?
     func getHeroUrlImage(atIndex: Int) -> String?
     func getHeroName(indexAt: Int) -> String?
     func getHero(index: Int) -> Hero?

@@ -12,10 +12,11 @@ import UIKit
 class ComicsCollectionViewModel: ComicViewModelProtocol{
 
     private var myComics: [Comic]?
-    private var myManager: SuperheroManager?
+    private var dataProvider: HeroesDataProvider?
     
     init(){
-        myManager = SuperheroManager()
+        //TODO DEPENDENCY INJECTION
+        dataProvider = MarvelAPIClient()
     }
 
     func getComicsCount() -> Int {
@@ -23,7 +24,7 @@ class ComicsCollectionViewModel: ComicViewModelProtocol{
     }
     
     func lookForComics(completion: @escaping () -> ()){
-        myManager?.getComics() { [weak self] comicsCollection in
+        dataProvider?.getComics() { [weak self] comicsCollection in
             guard let mySelf = self else { return }
             mySelf.myComics = comicsCollection
             completion()

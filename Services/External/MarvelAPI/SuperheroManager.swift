@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SuperheroManager {
+/*class SuperheroManager {
  
     private var superheroes: [Hero] = []
     private let myClient: APIClient
@@ -17,16 +17,10 @@ class SuperheroManager {
     init(){ myClient = APIClient() }
     
     func getSuperheroesFromAPI(completion: @escaping ([Hero]) -> Void) {
-        myClient.getSuperheroes{ [weak self] (heroesSet,error) in
-            
+        myClient.getSuperheroes{ [weak self] (heroesSet) in
             guard let myHeroes = heroesSet, let mySelf = self else {  return }
-            
-            if let error = error {
-                print("ERROR: \(error.localizedDescription)")
-            }else{
-                mySelf.getHeroesFromSetResult(setResult: myHeroes)
-                completion(mySelf.superheroes)
-            }
+            mySelf.getHeroesFromSetResult(setResult: myHeroes)
+            completion(mySelf.superheroes)
         }
     }
     
@@ -37,40 +31,28 @@ class SuperheroManager {
     }
 
     func getComicsFromHero(heroID: Int32, completion: @escaping ([Comic]?) -> Void){
-        myClient.getComicsHero(heroID: heroID ) { (heroComics,error) in
-            
-            if let error = error{
-                print("Error en la request de los comics por ID\n\(error.localizedDescription)")
-            }
+        myClient.getComicsOfHero(heroID: heroID ) { (heroComics) in
            completion(heroComics)
         }
     }
     
 
     func getComics(completion: @escaping ([Comic]?) -> Void) {
-        myClient.getComics() { (heroComics,error) in
-            
-            if let error = error{
-                print("Error en la request de los comics de los comics :  \n \(error.localizedDescription)")
-            }
+        myClient.getComics() { (heroComics) in
             completion(heroComics)
         }
     }
     
     func getwikiHero(hero:Hero,  completion: @escaping (String?) -> Void){
-        myClient.getWiki(hero: hero){ (wikiUrl,error) in
-            
-            if error != nil{
-                print("Error en la request de la wiki :  \n \(error!.localizedDescription)")
-            }
+        myClient.getWikiOfHero(heroName: hero.name){ (wikiUrl) in
             completion(wikiUrl)
         }
     }
     
     func getHeroByID(heroID: Int32, completion: @escaping (Hero) -> Void){
-        myClient.searchHerobyID(heroID: heroID){ hero in
+        myClient.getHeroByID(heroID: heroID){ hero in
             guard let myHero = hero else{ return }
             completion(myHero)
         }
     }
-}
+}*/

@@ -10,7 +10,7 @@ import Foundation
 
 class HeroDetailViewModel: HeroDetailViewModelProtocol {
    
-    private let heroManager = SuperheroManager()
+    private let dataProvider : HeroesDataProvider?
     private var myHero: Hero?
     private var urlWiki: String?
     private var comicsHero: [Comic]?
@@ -18,10 +18,14 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     
     init(hero: Hero?){
         myHero = hero
+        //DEPENDENCY INJECTION
+        dataProvider = MarvelAPIClient()
     }
     
     init(heroID: Int32) {
         self.heroID = heroID
+        //DEPENDENCY INJECTION
+        dataProvider = MarvelAPIClient()
     }
     
     func getHeroID() -> Int32 {
@@ -29,24 +33,24 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     }
     
     func getHeroName() -> String {
-        return myHero?.name ?? "NAME NOT FOUND"
+        return myHero?.name ?? Messages.NAME_NOT_FOUND
     }
     
     func getHeroDescription() -> String {
-        return myHero?.heroDescription ?? "DESCRIPTION NOT FOUND"
+        return myHero?.heroDescription ?? Messages.DESCRIPTION_NOT_FOUND
     }
     
     func getHeroUrlImage() -> String {
-        return myHero?.thumbnail.completePath() ?? "IMAGE NOT FOUND"
+        return myHero?.thumbnail.completePath() ?? Messages.IMAGE_NOT_FOUND
     }
     
     func getComicUrlImage(atIndex: Int) -> String {
-        return comicsHero?[atIndex].thumbnail.completePath() ?? "IMAGE NOT FOUND"
+        return comicsHero?[atIndex].thumbnail.completePath() ?? Messages.IMAGE_NOT_FOUND
     }
     
     func lookForWiki(completion: @escaping (String?) -> ()){
         guard let hero = myHero else { return }
-        heroManager.getwikiHero(hero: hero){ [weak self] (urlGiven) in
+        dataProvider?.getWikiOfHero(heroName: hero.name){ [weak self] (urlGiven) in
             guard let mySelf = self else { return }
             mySelf.urlWiki = urlGiven
             completion(mySelf.urlWiki)
@@ -55,7 +59,7 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     
     func lookForComics(completion: @escaping () -> ()){
         guard let hero = myHero else { return }
-        heroManager.getComicsFromHero(heroID: hero.id) { [weak self] comicArray in
+        dataProvider?.getComicsOfHero(heroID: hero.id) { [weak self] comicArray in
             guard let mySelf = self else { return }
             mySelf.comicsHero = comicArray
             completion()
@@ -74,11 +78,10 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     }
     
     func lookForHero(heroReady: @escaping () -> Void){
-        
         if(myHero != nil){
             heroReady()
         } else {
-            heroManager.getHeroByID(heroID: heroID ?? 0) { [weak self] hero in
+            dataProvider?.getHeroByID(heroID: heroID ?? 0) { [weak self] hero in
                 guard let mySelf = self else { return }
                 mySelf.myHero = hero
                 heroReady()

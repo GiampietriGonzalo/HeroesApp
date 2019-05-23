@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class Comic: NSManagedObject, Decodable{
+class Comic: NSManagedObject, Source{
     
     @NSManaged var id: Int32
     @NSManaged var comicDescription: String?

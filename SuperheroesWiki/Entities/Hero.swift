@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-class Hero: NSManagedObject,Decodable{
+class Hero: NSManagedObject, Source{
     
     @NSManaged var id: Int32
     @NSManaged var name: String

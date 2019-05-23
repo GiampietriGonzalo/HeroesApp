@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class CoreDataManager {
+class CoreDataPersistence: PersistenceGateway{
     
     private let appDelegate : AppDelegate?
     private let context : NSManagedObjectContext?
@@ -22,8 +22,7 @@ class CoreDataManager {
         do {
             try context?.save()
             print("STORE EXITOSO!")
-        }
-        catch let error {
+        } catch let error {
             print("FALLO EL STORE :: \(error)")
         }
     }
@@ -33,19 +32,13 @@ class CoreDataManager {
      en nuestra base.
      */
     func fetch() {
-        
         let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
-        
         do{
-        
             let results = try context?.fetch(fetchRequest)
             print("FUNCIONO FETCH :: \(results!.count)")
-            
-        }
-        catch let error {
+        } catch let error {
             print("FALLO EL FETCH :: \(error)")
         }
-        
     }
     
     /**
@@ -59,11 +52,8 @@ class CoreDataManager {
         do {
             //let results = try context.fetch(fetchRequest)
             //let firstHeroes = results.first!.data.results.first!
-            
-            
             try context?.save()
             print("UPDATE :: Sucessfull")
-            
         }
         catch let error {
             print("FALLO EL UPDATE :: \(error)!")
@@ -78,8 +68,7 @@ class CoreDataManager {
    
         if onlyFirstValue {
             deleteFirstValue(context: context)
-        }
-        else {
+        } else {
             deleteAllValues(context: context)
         }
     }
@@ -93,8 +82,7 @@ class CoreDataManager {
             if let aFirst = results?.first {
                 context?.delete(aFirst)
             }
-        }
-        catch let error {
+        } catch let error {
             print("FALLO EL DELETE! :: \(error)")
         }
     }
@@ -105,19 +93,16 @@ class CoreDataManager {
             let fetchRequest = NSFetchRequest<HeroesResponse>(entityName: "HeroesResponse")
             let batchDelete = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
             try context?.execute(batchDelete)
-        }
-        catch let error {
+        } catch let error {
             print("FALLO EL DELETE! :: \(error)")
         }
         print("DELETE :: SUCESSFULL")
     }
     
     func saveContext () {
-        
         guard let myContext = context else {
             return
         }
-        
         if myContext.hasChanges {
             do {
                 try myContext.save()
@@ -128,5 +113,4 @@ class CoreDataManager {
         }
     }
 
-    
 }
