@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class ComicsCollectionViewModel: ComicViewModelProtocol{
+class ListComicsViewModel: ListComicsViewModelProtocol{
 
-    private var myComics: [Comic]?
+    private var comicsList: [Comic]?
     private var dataProvider: HeroesDataProvider?
     
     init(){
@@ -20,23 +20,23 @@ class ComicsCollectionViewModel: ComicViewModelProtocol{
     }
 
     func getComicsCount() -> Int {
-        return myComics?.count ?? 0
+        return comicsList?.count ?? 0
     }
     
     func lookForComics(completion: @escaping () -> ()){
         dataProvider?.getComics() { [weak self] comicsCollection in
             guard let mySelf = self else { return }
-            mySelf.myComics = comicsCollection
+            mySelf.comicsList = comicsCollection
             completion()
         }
     }
 
     func getComicAt(index: Int) -> Comic? {
-        return myComics?[index] ?? nil
+        return comicsList?[index] ?? nil
     }
     
     func initComicCell(cell: ComicCollectionCell, row: Int){
-        if let comics = myComics {
+        if let comics = comicsList {
             cell.comicImage.sd_setImage(with: URL(string: comics[row].thumbnail.completePath()!),  placeholderImage: nil, options: [], completed: nil)
         }
     }

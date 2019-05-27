@@ -109,7 +109,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             //Levanta el DetailViewController
             detailController = mainStoryboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
             
-            detailController?.heroModelView = detailViewModel
+            detailController?.heroViewModel = detailViewModel
             //detailController?.paintData()
         
             //Pusheo al DetailViewController

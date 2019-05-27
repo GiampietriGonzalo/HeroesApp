@@ -8,10 +8,10 @@
 
 import Foundation
 
-protocol HeroCollectionViewModelProtocol {    
+protocol ListHeroesViewModelProtocol {    
     func lookForHeroes(completion: @escaping () -> ())
     func getHeroesCount() -> Int
-    func getHeroes() -> [Hero]?
+    func getHeroesList() -> [Hero]?
     func getHeroUrlImage(atIndex: Int) -> String?
     func getHeroName(indexAt: Int) -> String?
     func getHero(index: Int) -> Hero?

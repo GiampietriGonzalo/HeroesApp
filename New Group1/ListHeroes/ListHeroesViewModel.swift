@@ -12,57 +12,57 @@ import SDWebImage
 import UserNotifications
 import CoreData
 
-class HeroCollectionViewModel: HeroCollectionViewModelProtocol {
+class ListHeroesViewModel: ListHeroesViewModelProtocol {
     
-    private var search: [Hero]? = []
+    private var searchHeroesList: [Hero]? = []
     private var searching = false
-    private var superheroes: [Hero]?
+    private var heroesList: [Hero]?
     private var dataProvider: HeroesDataProvider?
     
     init(){
-        superheroes = []
+        heroesList = []
         dataProvider = MarvelAPIClient()
-        search = []
+        searchHeroesList = []
     }
     
     func lookForHeroes(completion: @escaping CompletionAlias.EmptyCompletion){
         dataProvider?.getSuperheroes{ [weak self] heroes in
             guard let self = self else { return }
-            self.superheroes = heroes
+            self.heroesList = heroes
             completion()
         }
     }
     
     func getHeroesCount() -> Int {
-        return (searching ? search?.count : superheroes?.count) ?? 0
+        return (searching ? searchHeroesList?.count : heroesList?.count) ?? 0
     }
     
-    func getHeroes() -> [Hero]? {
-       return searching ? search : superheroes
+    func getHeroesList() -> [Hero]? {
+       return searching ? searchHeroesList : heroesList
     }
     
     func getHeroUrlImage(atIndex: Int) -> String? {
-        return searching ? search?[atIndex].thumbnail.completePath() : superheroes?[atIndex].thumbnail.completePath()
+        return searching ? searchHeroesList?[atIndex].thumbnail.completePath() : heroesList?[atIndex].thumbnail.completePath()
     }
     
     func getHeroName(indexAt: Int) -> String? {
-        return (searching ? search?[indexAt].name : superheroes?[indexAt].name) ?? Messages.NAME_NOT_FOUND
+        return (searching ? searchHeroesList?[indexAt].name : heroesList?[indexAt].name) ?? Messages.NAME_NOT_FOUND
     }
     
     func getHero(index: Int) -> Hero? {
-        return searching ? search?[index] : superheroes?[index]
+        return searching ? searchHeroesList?[index] : heroesList?[index]
     }
     
     func searchLogic(searchText: String, completion: @escaping () -> ()){
-        guard let sup = superheroes else { return }
+        guard let sup = heroesList else { return }
         
         if(searchText == ""){
-            search = sup
+            searchHeroesList = sup
         } else {
-            search = []
+            searchHeroesList = []
             for h in sup{
                 if (h.name.contains(searchText)) {
-                    search = sup.filter({$0.name.prefix(searchText.count) == searchText })           
+                    searchHeroesList = sup.filter({$0.name.prefix(searchText.count) == searchText })           
                 }
             }
         }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mMW-wc-97k">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ComicID-->
+        <scene sceneID="lht-HX-wJS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ComicFlowStoryboard" referencedIdentifier="ComicID" id="1vh-XR-Hs2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="TXc-aS-cX1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A4v-cu-bvY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="567" y="330"/>
+        </scene>
+        <!--MapViewControllerIdentifier-->
+        <scene sceneID="vRt-fL-VLw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MapFlowStoryboard" referencedIdentifier="MapViewControllerIdentifier" id="K3v-WA-9nv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="more" id="liH-o7-W0m"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dis-IY-wc3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="646" y="443"/>
+        </scene>
+        <!--ListHeroesStoryboardID-->
+        <scene sceneID="77L-gW-ELW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ListHeroesStoryboard" referencedIdentifier="ListHeroesStoryboardID" id="ef5-0z-q9q" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="kww-ao-Vh8"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i3g-W3-jvq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="638" y="197"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="7dF-xE-Egz">
+            <objects>
+                <tabBarController id="mMW-wc-97k" sceneMemberID="viewController">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="dEC-cK-Qeg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ef5-0z-q9q" kind="relationship" relationship="viewControllers" id="acQ-JG-zyK"/>
+                        <segue destination="1vh-XR-Hs2" kind="relationship" relationship="viewControllers" id="Ojb-kA-dqZ"/>
+                        <segue destination="K3v-WA-9nv" kind="relationship" relationship="viewControllers" id="eSB-ez-vrM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ggZ-v7-uhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-545" y="319"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+</document>

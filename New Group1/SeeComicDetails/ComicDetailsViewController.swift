@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 
-class ComicViewController: UIViewController {
+class ComicDetailsViewController: UIViewController {
 
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
