@@ -319,6 +319,7 @@
 		7A03962D22272390001E7E4E /* SuperheroesWiki */ = {
 			isa = PBXGroup;
 			children = (
+				7A91DD8C229C4EDC0048FA80 /* Scenes */,
 				7A30B494229496900051B009 /* Services */,
 				7A30B49222948DF10051B009 /* Common */,
 				7A30B49122948D3B0051B009 /* View */,
@@ -463,6 +464,62 @@
 				7A3C2AC322452C1200339306 /* HeroCollectionViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7A91DD8C229C4EDC0048FA80 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				7A91DD92229C4F180048FA80 /* SeeHeroImage */,
+				7A91DD91229C4F0F0048FA80 /* SeeComicDetails */,
+				7A91DD90229C4F050048FA80 /* SeeHeroDetails */,
+				7A91DD8F229C4EF70048FA80 /* SeeStores */,
+				7A91DD8E229C4EF00048FA80 /* ListComics */,
+				7A91DD8D229C4EE70048FA80 /* ListHeroes */,
+			);
+			name = Scenes;
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
+		7A91DD8D229C4EE70048FA80 /* ListHeroes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ListHeroes;
+			sourceTree = "<group>";
+		};
+		7A91DD8E229C4EF00048FA80 /* ListComics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ListComics;
+			sourceTree = "<group>";
+		};
+		7A91DD8F229C4EF70048FA80 /* SeeStores */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SeeStores;
+			sourceTree = "<group>";
+		};
+		7A91DD90229C4F050048FA80 /* SeeHeroDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SeeHeroDetails;
+			sourceTree = "<group>";
+		};
+		7A91DD91229C4F0F0048FA80 /* SeeComicDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SeeComicDetails;
+			sourceTree = "<group>";
+		};
+		7A91DD92229C4F180048FA80 /* SeeHeroImage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SeeHeroImage;
 			sourceTree = "<group>";
 		};
 		7AB3614F22314BA40066AE9B /* storyboards */ = {
