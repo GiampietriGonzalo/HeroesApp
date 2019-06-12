@@ -25,35 +25,35 @@ protocol HeroDetailPresenterProtocol: Presenter{
 class HeroDetailsPresenter: HeroDetailPresenterProtocol {
    
     private let dataProvider : HeroesDataProvider?
-    private var myHero: Hero?
+    private var hero: Hero?
     private var urlWiki: String?
     private var comicsHero: [Comic]?
     private var heroID : Int32?
     
-    init(hero: Hero?){
-        myHero = hero
-        dataProvider = MarvelAPIClient()
+    init(hero: Hero?, dataProvider: HeroesDataProvider){
+        self.hero = hero
+        self.dataProvider = dataProvider
     }
     
-    init(heroID: Int32) {
+    init(heroID: Int32, dataProvider: HeroesDataProvider) {
         self.heroID = heroID
-        dataProvider = MarvelAPIClient()
+        self.dataProvider = dataProvider
     }
     
     func getHeroID() -> Int32 {
-        return myHero?.id ?? 0
+        return hero?.id ?? 0
     }
     
     func getHeroName() -> String {
-        return myHero?.name ?? Messages.NAME_NOT_FOUND
+        return hero?.name ?? Messages.NAME_NOT_FOUND
     }
     
     func getHeroDescription() -> String {
-        return myHero?.heroDescription ?? Messages.DESCRIPTION_NOT_FOUND
+        return hero?.heroDescription ?? Messages.DESCRIPTION_NOT_FOUND
     }
     
     func getHeroUrlImage() -> String {
-        return myHero?.thumbnail.completePath() ?? Messages.IMAGE_NOT_FOUND
+        return hero?.thumbnail.completePath() ?? Messages.IMAGE_NOT_FOUND
     }
     
     func getComicUrlImage(atIndex: Int) -> String {
@@ -61,7 +61,7 @@ class HeroDetailsPresenter: HeroDetailPresenterProtocol {
     }
     
     func lookForWiki(completion: @escaping (String?) -> ()){
-        guard let hero = myHero else { return }
+        guard let hero = hero else { return }
         dataProvider?.getWikiOfHero(heroName: hero.name){ [weak self] (urlGiven) in
             guard let mySelf = self else { return }
             mySelf.urlWiki = urlGiven
@@ -70,7 +70,7 @@ class HeroDetailsPresenter: HeroDetailPresenterProtocol {
     }
     
     func lookForComics(completion: @escaping () -> ()){
-        guard let hero = myHero else { return }
+        guard let hero = hero else { return }
         dataProvider?.getComicsOfHero(heroID: hero.id) { [weak self] comicArray in
             guard let mySelf = self else { return }
             mySelf.comicsHero = comicArray
@@ -86,16 +86,16 @@ class HeroDetailsPresenter: HeroDetailPresenterProtocol {
         return comicsHero?.count ?? 0
     }
     func getUrlWiki() -> String{
-        return urlWiki ?? ""
+        return urlWiki ?? Messages.WIKI_LINK_ERROR_MESSAGE
     }
     
     func lookForHero(heroReady: @escaping () -> Void){
-        if(myHero != nil){
+        if(hero != nil){
             heroReady()
         } else {
             dataProvider?.getHeroByID(heroID: heroID ?? 0) { [weak self] hero in
                 guard let mySelf = self else { return }
-                mySelf.myHero = hero
+                mySelf.hero = hero
                 heroReady()
             }
         }

@@ -46,10 +46,21 @@ struct Messages{
     static let NAME_NOT_FOUND = "Name not found"
     static let DESCRIPTION_NOT_FOUND = "Description not found"
     static let IMAGE_NOT_FOUND = "Image not found"
+    static let WIKI_LINK_ERROR_MESSAGE = "Link not found"
     static let NOTIFICATION_REMINDER_TITLE = "Remind!"
     static let NOTIFICATION_REMINDER_SUBTITLE = "You must see this!"
     static let NOTIFICATION_REMINDER_BODY = "You must see the awesome superhero wiki ;)"
     static let NOTIFICATION_ERROR_MESSAGE = "Notification Error"
+}
+
+struct SeguesID {
+    static let COMICLIST_TO_COMICDETAILS = "comicDetailSegue"
+    static let HEROEDETAILS_TO_COMICDETAILS = "comicSegue"
+    static let HEROEDETAILS_TO_IMAGEZOOMED = "tapSegue"
+}
+
+struct CustomViews {
+    static let CELL_COMIC = "comicCell"
 }
 
 

@@ -86,14 +86,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         var tabViewController: UITabBarController?
         var rootViewController : UINavigationController?
         var mainStoryboard: UIStoryboard?
-        var detailController: DetailViewController?
-        var detailViewModel : HeroDetailViewModel?
+        var detailController: HeroDetailsViewController?
+        var detailViewModel : HeroDetailsPresenter?
         
         if response.notification.request.identifier == "reminderNotification" {
 
             notificationInfo = response.notification.request.content.userInfo
             heroID = notificationInfo["heroID"] as? Int32
-            detailViewModel = HeroDetailViewModel(heroID: heroID ?? 0)
+            detailViewModel = HeroDetailsPresenter(heroID: heroID ?? 0, dataProvider: MarvelAPIClient())
             
             //REALIZAR CONSULTA PARA BUSCAR EL HERO POR ID
             
@@ -107,9 +107,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             
             //Levanta el DetailViewController
-            detailController = mainStoryboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController
+            detailController = mainStoryboard?.instantiateViewController(withIdentifier: "DetailViewController") as? HeroDetailsViewController
             
-            detailController?.heroViewModel = detailViewModel
+            detailController?.presenter = detailViewModel
             //detailController?.paintData()
         
             //Pusheo al DetailViewController

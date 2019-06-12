@@ -7,16 +7,17 @@ class ListHeroesViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var heroTable: UITableView!
     private var searching = false
-    private var heroesListModel : ListHeroesViewModelProtocol?
+    private var Interactor : ListHeroesInteractorProtocol?
+    var input: Input?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        heroesListModel = ListHeroesViewModel()
+        Interactor = ListHeroesInteractor()
         lookForHeroes()
     }
     
     private func lookForHeroes(){
-        heroesListModel?.lookForHeroes(){ [weak self] in
+        Interactor?.lookForHeroes(){ [weak self] in
             guard let mySelf = self else { return }
             mySelf.performSelector(onMainThread: #selector(mySelf.reloadHeroTableData), with: nil, waitUntilDone: true)
         }
@@ -28,19 +29,21 @@ class ListHeroesViewController: UIViewController, UITableViewDataSource, UITable
     
     //MARK : SEGUE
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let id = segue.identifier, let celda = sender as? HeroCell, let index = heroTable.indexPath(for: celda) else {
+        guard let id = segue.identifier,
+            let celda = sender as? HeroCell,
+            let index = heroTable.indexPath(for: celda) else {
             return
         }
         
-        let myVC = segue.destination as! DetailViewController
+        let myVC = segue.destination as! HeroDetailsViewController
         if(id == "detailSegue"){
-            myVC.heroViewModel = HeroDetailViewModel(hero: heroesListModel?.getHero(index: index.row) ?? nil)
+            myVC.presenter = HeroDetailsPresenter(hero: Interactor?.getHero(index: index.row) ?? nil, dataProvider: MarvelAPIClient())
         }
     }
     
     //MARK : TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return heroesListModel?.getHeroesCount() ?? 0
+        return Interactor?.getHeroesCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -54,16 +57,16 @@ class ListHeroesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     private func paintHeroCell(cell: HeroCell, row: Int){
-        let urlImage = heroesListModel?.getHeroUrlImage(atIndex: row)
+        let urlImage = Interactor?.getHeroUrlImage(atIndex: row)
         cell.heroimg.sd_setImage(with: URL(string: urlImage ?? ""),  placeholderImage: nil, options: [], completed: nil)
-        cell.heroName.text =  heroesListModel?.getHeroName(indexAt: row)
+        cell.heroName.text =  Interactor?.getHeroName(indexAt: row)
         cell.notificationButton.tag = row
     }
     
     @IBAction func addSeeLaterNotification(_ sender: Any) {
         let seeLaterButton = sender as! UIButton
-        heroesListModel?.addNotificaciont(tag: (sender as! UIButton).tag)
-        heroesListModel?.addNotificaciont(tag: seeLaterButton.tag)
+        Interactor?.addNotificaciont(tag: (sender as! UIButton).tag)
+        Interactor?.addNotificaciont(tag: seeLaterButton.tag)
         seeLaterButton.isHidden = true
     }
 }
@@ -71,7 +74,7 @@ class ListHeroesViewController: UIViewController, UITableViewDataSource, UITable
 extension ListHeroesViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        heroesListModel?.searchLogic(searchText: searchText){ [weak self] in
+        Interactor?.searchLogic(searchText: searchText){ [weak self] in
             guard let mySelf = self else{ return }
             mySelf.performSelector(onMainThread: #selector(mySelf.reloadHeroTableData), with: nil, waitUntilDone: true)
         }

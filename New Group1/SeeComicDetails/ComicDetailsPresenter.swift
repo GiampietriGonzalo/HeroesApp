@@ -7,3 +7,30 @@
 //
 
 import Foundation
+
+protocol ComicDetailsPresenterProtocol: Presenter {
+    func getComicID() -> Int32?
+    func getComicTitle() -> String?
+    func getComicDescription() -> String?
+}
+
+class ComicDetailsPresenter: ComicDetailsPresenterProtocol {
+    var controller: ComicDetailsPresenterProtocol?
+    var comic: Comic?
+    
+    func getComicID() -> Int32? {
+        return comic?.id
+    }
+    
+    func getComicTitle() -> String? {
+        return comic?.title
+    }
+    
+    func getComicDescription() -> String? {
+        return comic?.comicDescription
+    }
+    
+    func getComicUrlImage() -> String? {
+        return comic?.thumbnail.completePath()
+    }
+}

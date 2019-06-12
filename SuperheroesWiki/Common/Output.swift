@@ -7,3 +7,6 @@
 //
 
 import Foundation
+
+protocol Output{}
+protocol Input{}

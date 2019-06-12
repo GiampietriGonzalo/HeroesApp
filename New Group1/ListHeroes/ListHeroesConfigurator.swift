@@ -6,4 +6,22 @@
 //  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+class ListHeroesConfigurator: Configurator {
+    
+    static func configure(controller: UIViewController, with input: Input?) {
+        let controller = controller as? ListComicsViewController
+        controller?.router = initRouter() as? ListComicsRouter
+        controller?.interactor = initInteractor() as? ListComicsInteractor
+    }
+    
+    private static func initInteractor() -> Interactor {
+        return ListComicsInteractor(dataProvider: MarvelAPIClient())
+    }
+    
+    private static func initRouter() -> ViewControllerRouter {
+        return ListComicsRouter()
+    }
+}

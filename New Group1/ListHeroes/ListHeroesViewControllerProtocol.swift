@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+struct ListHeroesOutput: Output {
+    var hero: Hero
+}
+protocol ListHeroesViewControllerProtocol {
+    var router: ListComicsRouterProtocol? {get set}
+}

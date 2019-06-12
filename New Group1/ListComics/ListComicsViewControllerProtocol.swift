@@ -6,4 +6,11 @@
 //  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct ListComicsOutput: Output {
+    var comic: Comic
+}
+protocol ListComicsViewControllerProtocol {
+    var router: ListComicsRouterProtocol? {get set}
+}

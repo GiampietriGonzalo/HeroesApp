@@ -1,6 +1,11 @@
 import UIKit
 
 struct HeroDetailsInput: Input {
+    var hero: Hero?
+}
+
+struct HeroDetailsOutput: Output {
+    var hero: Hero?
     var comic: Comic?
 }
 
@@ -106,7 +111,7 @@ class HeroDetailsViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        let comicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
+        let comicCell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomViews.CELL_COMIC, for: indexPath) as! ComicCollectionCell
         comicCell.comicImage.sd_setImage(with: URL(string: presenter!.getComicUrlImage(atIndex: indexPath.row)),  placeholderImage: nil, options: [], completed: nil)
         return comicCell
     }

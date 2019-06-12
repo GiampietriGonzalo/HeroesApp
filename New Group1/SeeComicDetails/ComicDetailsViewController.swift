@@ -1,17 +1,32 @@
 import UIKit
 import SDWebImage
 
-class ComicDetailsViewController: UIViewController {
+
+struct ComicDetailsInput: Input {
+    var comic: Comic?
+}
+
+protocol ComicDetailsViewControllerProtocol {}
+
+class ComicDetailsViewController: UIViewController, ComicDetailsViewControllerProtocol {
 
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    var comic: Comic?
+    
+    var input: Input?
+    var presenter: ComicDetailsPresenter?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ComicDetailsConfigurator.configure(controller: self, with: input)
         pintAll()
+        
     }
 
     private func pintAll(){
@@ -20,14 +35,13 @@ class ComicDetailsViewController: UIViewController {
     }
     
     private func paintLabels(){
-        guard let myComic = comic else{ return }
-        titleLabel.text = myComic.title
-        descriptionLabel.text = "DESCRIPTION\n\(myComic.comicDescription ?? "")"
-        idLabel.text = "ID: \(myComic.id)"
+        titleLabel.text = presenter?.getComicTitle()
+        descriptionLabel.text = "DESCRIPTION\n\(presenter?.getComicDescription() ?? Messages.DESCRIPTION_NOT_FOUND)"
+        idLabel.text = "ID: \(String(describing: presenter?.getComicID()))"
     }
     
     private func paintComicImage(){
-         image.sd_setImage(with: URL(string: self.comic!.thumbnail.completePath()!),  placeholderImage: nil, options: [], completed: nil)
+         image.sd_setImage(with: URL(string: presenter?.getComicUrlImage() ?? Messages.IMAGE_NOT_FOUND),  placeholderImage: nil, options: [], completed: nil)
     }
 }
 

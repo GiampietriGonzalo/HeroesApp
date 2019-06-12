@@ -13,5 +13,6 @@ enum SegueId: String {
     case heroDetailsToImageZoomed = "tapSegue"
     case heroDetailsToHeroWiki = "heroWikiSegue"
     case listComicsToComicDetails = "comicDetailSegue"
+    case listHeroesToHeroDetails = "detailSegue"
 }
 

@@ -1,22 +1,23 @@
 import UIKit
 
-class ListComicsViewController: UIViewController{
+class ListComicsViewController: UIViewController, ListComicsViewControllerProtocol{
 
     @IBOutlet weak var comicsList: UICollectionView!
-    @IBOutlet var myView: UIView!
-    
-    private var comicModel : ListComicsViewModelProtocol?
+    var router: ListComicsRouterProtocol?
+    var interactor : ListComicsInteractor?
 
+    override func awakeFromNib(){
+        super.awakeFromNib()
+        ListComicsConfigurator.configure(controller: self, with: nil)
+    }
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        comicModel = ListComicsViewModel()
         lookForComics()
     }
     
-
     private func lookForComics(){
-        comicModel?.lookForComics(){ [weak self] in
+        interactor?.lookForComics(){ [weak self] in
             guard let mySelf = self else{ return }
             mySelf.performSelector(onMainThread: #selector(mySelf.reloadComicCollectionData), with: nil, waitUntilDone: true)
         }
@@ -30,27 +31,22 @@ class ListComicsViewController: UIViewController{
 extension ListComicsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comicModel!.getComicsCount()
+        return interactor!.getComicsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let myCell = comicsList.dequeueReusableCell(withReuseIdentifier: "comicCell", for: indexPath) as! ComicCollectionCell
-        comicModel?.initComicCell(cell: myCell, row: indexPath.row)
+        interactor?.initComicCell(cell: myCell, row: indexPath.row)
         return myCell
     }
     
-   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let segueId = segue.identifier else{ return }
-        
-        if (segueId == "comicDetailSegue"){
-            guard let myCell = sender as? ComicCollectionCell ,let index = comicsList.indexPath(for: myCell)?.row else {
-                return
-            }
-            let myVC = segue.destination as? ComicDetailsViewController
-            myVC?.comic = comicModel?.getComicAt(index: index)
+        if let myCell = sender as? ComicCollectionCell,
+            let index = comicsList.indexPath(for: myCell)?.row,
+            let interactor = interactor {
+            let output = ListComicsOutput(comic: interactor.getComicAt(index: index)!)
+            router?.goToController(with: segue, withData: output)
         }
     }
 }

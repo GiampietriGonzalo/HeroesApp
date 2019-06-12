@@ -136,10 +136,10 @@
             </objects>
             <point key="canvasLocation" x="1957.5999999999999" y="-75.112443778110944"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Hero Details View Controller-->
         <scene sceneID="cVJ-Ko-7nq">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="OB7-5s-aVp" customClass="DetailViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="OB7-5s-aVp" customClass="HeroDetailsViewController" customModule="SuperHero" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fUn-QA-97K">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

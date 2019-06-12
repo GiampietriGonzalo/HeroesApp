@@ -6,4 +6,18 @@
 //  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class HeroDetailsConfigurator: Configurator {
+    
+    static func configure(controller: UIViewController, with input: Input?) {
+        let controller = controller as? HeroDetailsViewController
+        controller?.presenter = initPresenter(with: input) as? HeroDetailsPresenter
+    }
+    
+    private static func initPresenter(with input: Input?) -> Presenter {
+        let input = input as? HeroDetailsInput
+        let presenter = HeroDetailsPresenter(hero: input?.hero, dataProvider: MarvelAPIClient())
+        return presenter
+    }
+}

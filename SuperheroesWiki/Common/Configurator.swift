@@ -6,4 +6,8 @@
 //  Copyright © 2019 Gonzalo Giampietri. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol Configurator {
+    static func configure(controller: UIViewController, with input: Input?)
+}

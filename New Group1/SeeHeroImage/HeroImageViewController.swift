@@ -12,11 +12,9 @@ class HeroImageViewController: UIViewController {
     }
     
     public func paintAll(){
-        
         guard let urlImage = heroImage else{
             return
         }
-        
         img?.sd_setImage(with: URL(string: urlImage),  placeholderImage: nil, options: [], completed: nil)
     }
     

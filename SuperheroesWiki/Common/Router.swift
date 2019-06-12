@@ -9,33 +9,10 @@
 import Foundation
 import UIKit
 
-protocol Router {
-    func zoomHeroImage(segue: UIStoryboardSegue)
-    func goToWiki(segue: UIStoryboardSegue, sender: Any?)
-    func goToComicDetail(segue: UIStoryboardSegue)
+protocol ViewControllerRouter {
 }
 
-/*class segueRouter: Router{
-    
-    func zoomHeroImage(segue: UIStoryboardSegue) {
-        <#code#>
-    }
-    
-    func goToWiki(segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let myCell = sender as? ComicCollectionCell ,let index = comicsCollection.indexPath(for: myCell)?.row else {
-            return
-        }
-        
-        let myVC = segue.destination as? ComicViewController
-        myVC?.comic = heroModelView?.getComicAt(index: index)
-    }
-    
-    func goToComicDetail(segue: UIStoryboardSegue) {
-        <#code#>
-    }
-    
-    
-    
-    
-}*/
+protocol StoryboardRouter {
+    func routeToStoryboard(to: UIStoryboard, with: UIStoryboardSegue)
+}
+
