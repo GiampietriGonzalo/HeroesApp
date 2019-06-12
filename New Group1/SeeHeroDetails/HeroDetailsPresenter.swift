@@ -8,7 +8,21 @@
 
 import Foundation
 
-class HeroDetailViewModel: HeroDetailViewModelProtocol {
+protocol HeroDetailPresenterProtocol: Presenter{
+    func getHeroID() -> Int32
+    func getHeroName() -> String
+    func getHeroDescription() -> String
+    func getHeroUrlImage() -> String
+    func lookForWiki(completion: @escaping (String?) -> ())
+    func lookForComics(completion: @escaping () -> ())
+    func getComicAt(index: Int) -> Comic?
+    func getComicsCount() -> Int
+    func getUrlWiki() -> String
+    func getComicUrlImage(atIndex: Int) -> String
+    func lookForHero(heroReady: @escaping () -> Void)
+}
+
+class HeroDetailsPresenter: HeroDetailPresenterProtocol {
    
     private let dataProvider : HeroesDataProvider?
     private var myHero: Hero?
@@ -18,13 +32,11 @@ class HeroDetailViewModel: HeroDetailViewModelProtocol {
     
     init(hero: Hero?){
         myHero = hero
-        //DEPENDENCY INJECTION
         dataProvider = MarvelAPIClient()
     }
     
     init(heroID: Int32) {
         self.heroID = heroID
-        //DEPENDENCY INJECTION
         dataProvider = MarvelAPIClient()
     }
     

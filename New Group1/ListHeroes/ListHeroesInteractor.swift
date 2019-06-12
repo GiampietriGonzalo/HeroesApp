@@ -12,7 +12,7 @@ import SDWebImage
 import UserNotifications
 import CoreData
 
-class ListHeroesViewModel: ListHeroesViewModelProtocol {
+class ListHeroesInteractor: ListHeroesInteractorProtocol {
     
     private var searchHeroesList: [Hero]? = []
     private var searching = false

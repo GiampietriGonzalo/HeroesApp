@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ListHeroesViewModelProtocol {    
+protocol ListHeroesInteractorProtocol {    
     func lookForHeroes(completion: @escaping () -> ())
     func getHeroesCount() -> Int
     func getHeroesList() -> [Hero]?

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ListComicsViewModelProtocol: class {
+protocol ListComicsInteractorProtocol: class {
     func getComicsCount() -> Int
     func lookForComics(completion: @escaping () -> ())
     func getComicAt(index: Int) -> Comic?
